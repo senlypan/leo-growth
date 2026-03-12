@@ -1,5 +1,5 @@
 {
-  "appid": "wx0000000000000000",
+  "appid": "wxb3d50073a04c5044",
   "projectname": "leo-growth",
   "miniprogramRoot": "./",
   "compileType": "miniprogram",
@@ -39,9 +39,20 @@
     "disableUseStrict": false,
     "minifyWXML": true,
     "showES6CompileOption": false,
-    "useCompilerPlugins": []
+    "useCompilerPlugins": [],
+    "compileWorklet": false,
+    "localPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "libVersion": "2.19.4",
   "srcMiniprogramRoot": "",
-  "condition": {}
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "editorSetting": {}
 }
