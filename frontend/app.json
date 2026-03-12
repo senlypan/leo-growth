@@ -22,27 +22,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/home-active.png"
+        "text": "🏠 首页"
       },
       {
         "pagePath": "pages/homework/homework",
-        "text": "作业",
-        "iconPath": "images/homework.png",
-        "selectedIconPath": "images/homework-active.png"
+        "text": "📚 作业"
       },
       {
         "pagePath": "pages/mistakes/mistakes",
-        "text": "错题",
-        "iconPath": "images/mistake.png",
-        "selectedIconPath": "images/mistake-active.png"
+        "text": "❌ 错题"
       },
       {
         "pagePath": "pages/report/report",
-        "text": "报告",
-        "iconPath": "images/report.png",
-        "selectedIconPath": "images/report-active.png"
+        "text": "📊 报告"
       }
     ]
   },
