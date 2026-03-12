@@ -1,251 +1,394 @@
-/* pages/homework/homework.wxss - 作业列表样式 */
+/* pages/homework/homework.wxss - 乔布斯设计版 */
 
-/* 筛选栏 */
-.filter-bar {
-  padding: 20rpx;
-}
-
-.filter-row {
-  display: flex;
-  gap: 16rpx;
-  margin-bottom: 16rpx;
-}
-
-.filter-row:last-child {
-  margin-bottom: 0;
-}
-
-.filter-item {
-  flex: 1;
-  padding: 12rpx 20rpx;
-  background: var(--bg-color);
-  border-radius: 20rpx;
+/* ===================================================
+   页面头部
+   =================================================== */
+.page-header {
   text-align: center;
-  border: 2rpx solid transparent;
-  transition: all 0.2s;
+  padding: 40rpx 0;
 }
 
-.filter-item text {
-  font-size: 24rpx;
-  color: var(--text-light);
+.page-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8rpx;
 }
 
-.filter-item.active {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
+.page-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #95a5a6;
 }
 
-.filter-item.active text {
-  color: var(--white);
-}
-
-/* 日期选择 */
-.date-selector {
-  padding: 20rpx;
+/* ===================================================
+   日期选择 - 高端卡片
+   =================================================== */
+.date-selector-premium {
   display: flex;
   gap: 20rpx;
+  margin-bottom: 24rpx;
 }
 
-.date-item {
+.date-item-premium {
   flex: 1;
-  padding: 20rpx;
-  background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, rgba(78, 205, 196, 0.05) 100%);
-  border-radius: 16rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx 16rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8rpx;
-  border: 2rpx solid transparent;
-  transition: all 0.2s;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.date-item.active {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-  border-color: var(--primary-color);
+.date-item-premium:active {
+  transform: scale(0.95);
+}
+
+.date-item-premium.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.4);
+}
+
+.date-item-premium.active .date-text,
+.date-item-premium.active .date-sub {
+  color: #fff;
+}
+
+.date-emoji {
+  font-size: 40rpx;
+  margin-bottom: 4rpx;
 }
 
 .date-text {
   font-size: 28rpx;
-  font-weight: bold;
-  color: var(--primary-color);
-}
-
-.date-item.active .date-text {
-  color: var(--white);
+  font-weight: 600;
+  color: #2c3e50;
 }
 
 .date-sub {
   font-size: 22rpx;
-  color: var(--text-muted);
+  color: #95a5a6;
 }
 
-.date-item.active .date-sub {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-/* 作业列表 */
-.homework-list {
-  margin-top: 20rpx;
-}
-
-.homework-card {
+/* ===================================================
+   筛选胶囊
+   =================================================== */
+.filter-capsules {
+  background: #fff;
+  border-radius: 24rpx;
   padding: 24rpx;
-  margin-bottom: 20rpx;
-  transition: all 0.2s;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
 }
 
-.homework-card:active {
-  transform: scale(0.98);
-}
-
-.homework-header {
+.capsule-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 12rpx;
   margin-bottom: 16rpx;
 }
 
-.subject-badge {
-  padding: 6rpx 16rpx;
-  border-radius: 12rpx;
-  font-size: 22rpx;
-  font-weight: bold;
+.capsule-row:last-child {
+  margin-bottom: 0;
 }
 
-.subject-badge.chinese {
-  background: rgba(231, 76, 60, 0.15);
-  color: #e74c3c;
+.filter-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #7f8c8d;
+  white-space: nowrap;
 }
 
-.subject-badge.math {
-  background: rgba(52, 152, 219, 0.15);
-  color: #3498db;
+.capsule {
+  padding: 12rpx 24rpx;
+  background: #f8f9fa;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #7f8c8d;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.subject-badge.english {
-  background: rgba(46, 204, 113, 0.15);
-  color: #2ecc71;
+.capsule:active {
+  transform: scale(0.95);
 }
 
-.status-badge {
-  padding: 6rpx 16rpx;
-  border-radius: 12rpx;
-  font-size: 22rpx;
+.capsule.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
 }
 
-.status-badge.pending {
-  background: rgba(243, 156, 18, 0.15);
-  color: #f39c12;
-}
-
-.status-badge.completed {
-  background: rgba(46, 204, 113, 0.15);
-  color: #2ecc71;
-}
-
-.status-badge.checked {
-  background: rgba(52, 152, 219, 0.15);
-  color: #3498db;
-}
-
-.homework-content {
+/* ===================================================
+   作业卡片 - 高端版
+   =================================================== */
+.homework-card-premium {
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 32rpx;
   margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.homework-text {
-  font-size: 28rpx;
-  line-height: 1.6;
-  color: var(--text-color);
+.homework-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
 }
 
-.homework-footer {
+.homework-card-premium.chinese::before {
+  background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+}
+
+.homework-card-premium.math::before {
+  background: linear-gradient(90deg, #3498db 0%, #2980b9 100%);
+}
+
+.homework-card-premium.english::before {
+  background: linear-gradient(90deg, #f39c12 0%, #e67e22 100%);
+}
+
+.homework-card-premium:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.homework-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16rpx;
+  margin-bottom: 20rpx;
 }
 
-.homework-time {
+.subject-badge-premium {
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.subject-badge-premium.chinese {
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+}
+
+.subject-badge-premium.math {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+.subject-badge-premium.english {
+  background: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+}
+
+.status-badge-premium {
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.status-badge-premium.pending {
+  background: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+}
+
+.status-badge-premium.completed {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+}
+
+.status-badge-premium.checked {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+.homework-card-content {
+  margin-bottom: 24rpx;
+}
+
+.homework-card-text {
+  display: block;
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: #2c3e50;
+  background: #f8f9fa;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  border-left: 4rpx solid #667eea;
+}
+
+.homework-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24rpx;
+  border-top: 2rpx solid #f8f9fa;
+}
+
+.homework-card-time {
   display: flex;
   align-items: center;
   gap: 8rpx;
-  flex: 1;
 }
 
-.time-icon {
-  font-size: 24rpx;
+.time-emoji {
+  font-size: 28rpx;
 }
 
 .time-text {
-  font-size: 22rpx;
-  color: var(--text-muted);
+  font-size: 24rpx;
+  color: #95a5a6;
 }
 
-.homework-actions {
+.homework-card-actions {
   display: flex;
   gap: 12rpx;
 }
 
-.action-btn {
-  padding: 10rpx 20rpx;
-  border-radius: 12rpx;
-  font-size: 24rpx;
-  font-weight: bold;
-  transition: all 0.2s;
-  white-space: nowrap;
+.action-btn-premium {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.action-btn:active {
-  transform: scale(0.95);
+.action-btn-premium:active {
+  transform: scale(0.9);
 }
 
-.submit-btn {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-  color: var(--white);
+.submit-btn-premium {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
   box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
 }
 
-.check-btn {
-  background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
-  color: var(--white);
+.check-btn-premium {
+  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+  color: #fff;
   box-shadow: 0 4rpx 12rpx rgba(243, 156, 18, 0.3);
 }
 
-.view-btn {
-  background: var(--bg-color);
-  color: var(--text-light);
-  border: 1rpx solid #ddd;
+.view-btn-premium {
+  background: #f8f9fa;
+  color: #667eea;
+  border: 2rpx solid #667eea;
 }
 
-/* 空状态 */
-.empty {
+/* ===================================================
+   空状态 - 高端版
+   =================================================== */
+.empty-premium {
+  background: #fff;
+  border-radius: 28rpx;
+  padding: 80rpx 40rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+
+.empty-emoji-large {
+  font-size: 100rpx;
+  display: block;
+  margin-bottom: 24rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.1));
+}
+
+.empty-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 8rpx;
+}
+
+.empty-desc {
+  display: block;
+  font-size: 26rpx;
+  color: #95a5a6;
+}
+
+/* ===================================================
+   加载状态 - 高端版
+   =================================================== */
+.loading-premium {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100rpx 40rpx;
+  padding: 60rpx 0;
 }
 
-.empty-icon {
-  font-size: 100rpx;
-  margin-bottom: 24rpx;
+.loading-emoji {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+  animation: bounce 1s infinite;
 }
 
-.empty-text {
-  font-size: 32rpx;
-  color: var(--text-color);
-  margin-bottom: 12rpx;
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16rpx); }
 }
 
-.empty-hint {
-  font-size: 26rpx;
-  color: var(--text-muted);
+/* ===================================================
+   动画效果
+   =================================================== */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* 加载状态 */
-.loading {
-  display: flex;
-  justify-content: center;
-  padding: 40rpx;
-  color: var(--text-muted);
-  font-size: 26rpx;
+.date-selector-premium,
+.filter-capsules,
+.homework-card-premium {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* ===================================================
+   儿童友好设计
+   =================================================== */
+.homework-card-premium {
+  /* 大圆角 - 安全友好 */
+  border-radius: 28rpx;
+  
+  /* 大间距 - 易点击 */
+  padding: 32rpx;
+  
+  /* 大按钮 - 方便操作 */
+  .action-btn-premium {
+    width: 64rpx;
+    height: 64rpx;
+  }
+  
+  /* 大字体 - 易读 */
+  .homework-card-text {
+    font-size: 30rpx;
+  }
+  
+  /* 鲜艳色彩 - 吸引注意 */
+  &:hover {
+    box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.2);
+  }
 }

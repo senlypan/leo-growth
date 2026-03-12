@@ -1,119 +1,130 @@
-<!--pages/homework/homework.wxml - 作业列表-->
+<!--pages/homework/homework.wxml - 乔布斯设计版-->
 <view class="container">
-  <!-- 顶部筛选栏 -->
-  <view class="filter-bar card">
-    <view class="filter-row">
-      <view class="filter-item {{currentSubject === 'all' ? 'active' : ''}}" 
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">📚 作业辅导</text>
+    <text class="page-subtitle">智能管理，轻松完成</text>
+  </view>
+
+  <!-- 日期选择 - 高端卡片 -->
+  <view class="date-selector-premium">
+    <view class="date-item-premium {{selectedDate === today ? 'active' : ''}}" bindtap="selectDate" data-date="{{today}}">
+      <text class="date-emoji">☀️</text>
+      <text class="date-text">今天</text>
+      <text class="date-sub">{{todayStr}}</text>
+    </view>
+    <view class="date-item-premium {{selectedDate === tomorrow ? 'active' : ''}}" bindtap="selectDate" data-date="{{tomorrow}}">
+      <text class="date-emoji">🌙</text>
+      <text class="date-text">明天</text>
+      <text class="date-sub">{{tomorrowStr}}</text>
+    </view>
+    <view class="date-item-premium" bindtap="showDatePicker">
+      <text class="date-emoji">📅</text>
+      <text class="date-text">选择</text>
+      <text class="date-sub">日期</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 - 胶囊设计 -->
+  <view class="filter-capsules">
+    <view class="capsule-row">
+      <text class="filter-label">科目：</text>
+      <view class="capsule {{currentSubject === 'all' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="all">
         <text>全部</text>
       </view>
-      <view class="filter-item {{currentSubject === 'chinese' ? 'active' : ''}}" 
+      <view class="capsule {{currentSubject === 'chinese' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="chinese">
-        <text>📖 语文</text>
+        <text>📖</text>
       </view>
-      <view class="filter-item {{currentSubject === 'math' ? 'active' : ''}}" 
+      <view class="capsule {{currentSubject === 'math' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="math">
-        <text>🔢 数学</text>
+        <text>🔢</text>
       </view>
-      <view class="filter-item {{currentSubject === 'english' ? 'active' : ''}}" 
+      <view class="capsule {{currentSubject === 'english' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="english">
-        <text>🔤 英语</text>
+        <text>🔤</text>
       </view>
     </view>
     
-    <view class="filter-row">
-      <view class="filter-item {{currentStatus === 'all' ? 'active' : ''}}" 
+    <view class="capsule-row">
+      <text class="filter-label">状态：</text>
+      <view class="capsule {{currentStatus === 'all' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="all">
         <text>全部</text>
       </view>
-      <view class="filter-item {{currentStatus === 'pending' ? 'active' : ''}}" 
+      <view class="capsule {{currentStatus === 'pending' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="pending">
-        <text>⏳ 未完成</text>
+        <text>⏳</text>
       </view>
-      <view class="filter-item {{currentStatus === 'completed' ? 'active' : ''}}" 
+      <view class="capsule {{currentStatus === 'completed' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="completed">
-        <text>✅ 已完成</text>
+        <text>✅</text>
       </view>
-    </view>
-  </view>
-
-  <!-- 日期选择 -->
-  <view class="date-selector card">
-    <view class="date-item {{selectedDate === today ? 'active' : ''}}" bindtap="selectDate" data-date="{{today}}">
-      <text class="date-text">今天</text>
-      <text class="date-sub">{{todayStr}}</text>
-    </view>
-    <view class="date-item {{selectedDate === tomorrow ? 'active' : ''}}" bindtap="selectDate" data-date="{{tomorrow}}">
-      <text class="date-text">明天</text>
-      <text class="date-sub">{{tomorrowStr}}</text>
-    </view>
-    <view class="date-item" bindtap="showDatePicker">
-      <text class="date-text">📅</text>
-      <text class="date-sub">选择日期</text>
     </view>
   </view>
 
   <!-- 作业列表 -->
-  <view class="homework-list">
+  <view class="homework-list-premium">
     <!-- 空状态 -->
-    <view class="empty" wx:if="{{homeworkList.length === 0}}">
-      <text class="empty-icon">📝</text>
-      <text class="empty-text">暂无作业</text>
-      <text class="empty-hint">好好休息一下吧～</text>
+    <view class="empty-premium" wx:if="{{homeworkList.length === 0}}">
+      <text class="empty-emoji-large">🎉</text>
+      <text class="empty-title">暂无作业</text>
+      <text class="empty-desc">好好休息一下吧～</text>
     </view>
 
     <!-- 作业卡片 -->
-    <view class="homework-card card" 
+    <view class="homework-card-premium" 
           wx:for="{{homeworkList}}" 
           wx:key="id"
           bindtap="goToDetail"
           data-id="{{item.id}}">
       
-      <view class="homework-header">
-        <view class="subject-badge {{item.subject}}">
+      <view class="homework-card-header">
+        <view class="subject-badge-premium {{item.subject}}">
           <text>{{subjectNames[item.subject]}}</text>
         </view>
-        <view class="status-badge {{item.status}}">
+        <view class="status-badge-premium {{item.status}}">
           <text>{{statusNames[item.status]}}</text>
         </view>
       </view>
 
-      <view class="homework-content">
-        <text class="homework-text">{{item.content}}</text>
+      <view class="homework-card-content">
+        <text class="homework-card-text">{{item.content}}</text>
       </view>
 
-      <view class="homework-footer">
-        <view class="homework-time">
-          <text class="time-icon">⏰</text>
+      <view class="homework-card-footer">
+        <view class="homework-card-time">
+          <text class="time-emoji">⏰</text>
           <text class="time-text">截止：{{item.dueDate}}</text>
         </view>
-        <view class="homework-actions">
-          <view class="action-btn submit-btn" 
+        <view class="homework-card-actions">
+          <view class="action-btn-premium submit-btn-premium" 
                 wx:if="{{item.status === 'pending'}}"
                 bindtap="goToSubmit" 
                 data-id="{{item.id}}"
                 catchtap="true">
-            <text>✏️ 提交</text>
+            <text>✏️</text>
           </view>
-          <view class="action-btn check-btn" 
+          <view class="action-btn-premium check-btn-premium" 
                 wx:if="{{item.status === 'completed'}}"
                 bindtap="goToCheck" 
                 data-id="{{item.id}}"
                 catchtap="true">
-            <text>👨‍🏫 检查</text>
+            <text>👨‍🏫</text>
           </view>
-          <view class="action-btn view-btn" 
+          <view class="action-btn-premium view-btn-premium" 
                 bindtap="goToSubmission" 
                 data-id="{{item.id}}"
                 catchtap="true">
-            <text>📋 记录</text>
+            <text>📋</text>
           </view>
         </view>
       </view>
@@ -121,7 +132,8 @@
   </view>
 
   <!-- 加载状态 -->
-  <view class="loading" wx:if="{{loading}}">
+  <view class="loading-premium" wx:if="{{loading}}">
+    <text class="loading-emoji">⏳</text>
     <text>加载中...</text>
   </view>
 </view>
