@@ -1,11 +1,19 @@
--- Leo Growth 数据库初始化脚本
+-- ============================================================
+-- Leo Growth 数据库完整初始化脚本
 -- 数据库：leo_growth
--- 创建日期：2026-03-11
+-- 版本：v2.0.0
+-- 创建日期：2026-03-12
+-- 说明：包含所有功能模块的完整表结构
+-- ============================================================
 
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS `leo_growth` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 USE `leo_growth`;
+
+-- ============================================================
+-- 1. 用户模块
+-- ============================================================
 
 -- 用户表
 DROP TABLE IF EXISTS `users`;
@@ -16,14 +24,21 @@ CREATE TABLE `users` (
     `name` VARCHAR(50) NOT NULL COMMENT '姓名',
     `avatar` VARCHAR(255) DEFAULT NULL COMMENT '头像 URL',
     `phone` VARCHAR(20) DEFAULT NULL COMMENT '手机号',
+    `grade` INT DEFAULT NULL COMMENT '年级：1-6',
     `points` INT DEFAULT 100 COMMENT '积分',
+    `level` INT DEFAULT 1 COMMENT '等级',
     `deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除：0-未删除，1-已删除',
     `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_openid` (`openid`),
-    KEY `idx_role` (`role`)
+    KEY `idx_role` (`role`),
+    KEY `idx_grade` (`grade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
+
+-- ============================================================
+-- 2. 作业管理模块
+-- ============================================================
 
 -- 作业表
 DROP TABLE IF EXISTS `homeworks`;
@@ -67,6 +82,10 @@ CREATE TABLE `homework_submissions` (
     KEY `idx_submit_time` (`submit_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='作业提交表';
 
+-- ============================================================
+-- 3. 错题本模块
+-- ============================================================
+
 -- 错题表
 DROP TABLE IF EXISTS `mistakes`;
 CREATE TABLE `mistakes` (
@@ -77,9 +96,10 @@ CREATE TABLE `mistakes` (
     `question` TEXT NOT NULL COMMENT '题目内容',
     `user_answer` TEXT COMMENT '用户答案',
     `correct_answer` TEXT COMMENT '正确答案',
-    `error_type` VARCHAR(50) DEFAULT NULL COMMENT '错误类型',
+    `error_type` VARCHAR(50) DEFAULT NULL COMMENT '错误类型：calculation_error-计算错误，knowledge_error-知识点错误，memory_error-记忆错误，careless_error-粗心错误，understanding_error-理解错误',
     `knowledge_point` VARCHAR(100) DEFAULT NULL COMMENT '知识点',
     `reviewed` TINYINT DEFAULT 0 COMMENT '是否已复习：0-未复习，1-已复习',
+    `review_time` DATETIME DEFAULT NULL COMMENT '复习时间',
     `deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除：0-未删除，1-已删除',
     `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -89,6 +109,10 @@ CREATE TABLE `mistakes` (
     KEY `idx_subject` (`subject`),
     KEY `idx_reviewed` (`reviewed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='错题表';
+
+-- ============================================================
+-- 4. 学习报告模块
+-- ============================================================
 
 -- 学习报告表
 DROP TABLE IF EXISTS `learning_reports`;
@@ -106,6 +130,10 @@ CREATE TABLE `learning_reports` (
     KEY `idx_report_type` (`report_type`),
     KEY `idx_report_date` (`report_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='学习报告表';
+
+-- ============================================================
+-- 5. 能力评估模块
+-- ============================================================
 
 -- 能力评估表
 DROP TABLE IF EXISTS `assessments`;
@@ -129,17 +157,22 @@ DROP TABLE IF EXISTS `assessment_questions`;
 CREATE TABLE `assessment_questions` (
     `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键 ID',
     `subject` VARCHAR(20) NOT NULL COMMENT '科目',
-    `question_type` VARCHAR(50) NOT NULL COMMENT '题目类型',
+    `question_type` VARCHAR(50) NOT NULL COMMENT '题目类型：choice-选择题，fill-填空题',
     `question_content` TEXT NOT NULL COMMENT '题目内容',
     `options` JSON COMMENT '选项',
     `correct_answer` VARCHAR(500) NOT NULL COMMENT '正确答案',
     `score` INT NOT NULL DEFAULT 5 COMMENT '分数',
     `difficulty` INT DEFAULT 1 COMMENT '难度等级 1-5',
     `deleted` TINYINT DEFAULT 0 COMMENT '逻辑删除：0-未删除，1-已删除',
+    `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
     KEY `idx_subject` (`subject`),
     KEY `idx_difficulty` (`difficulty`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='评估题目表';
+
+-- ============================================================
+-- 6. 目标管理模块
+-- ============================================================
 
 -- 学习目标表
 DROP TABLE IF EXISTS `learning_goals`;
@@ -159,6 +192,10 @@ CREATE TABLE `learning_goals` (
     KEY `idx_student_id` (`student_id`),
     KEY `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='学习目标表';
+
+-- ============================================================
+-- 7. 积分成就模块
+-- ============================================================
 
 -- 学生积分表
 DROP TABLE IF EXISTS `student_points`;
@@ -224,15 +261,39 @@ CREATE TABLE `student_achievements` (
     KEY `idx_achievement_id` (`achievement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='学生成就表';
 
--- 插入测试数据
-INSERT INTO `users` (`openid`, `role`, `name`, `points`) VALUES 
-('mock_openid_001', 'student', '潘灏成', 100);
+-- ============================================================
+-- 8. 初始化测试数据
+-- ============================================================
 
+-- 插入测试用户
+INSERT INTO `users` (`openid`, `role`, `name`, `grade`, `points`) VALUES 
+('mock_openid_001', 'student', '潘灏成', 2, 100);
+
+-- 插入测试作业
 INSERT INTO `homeworks` (`student_id`, `subject`, `content`, `status`, `assign_date`) VALUES 
-(1, 'chinese', '语文作业：完成练习册第 5 页', 'pending', '2026-03-11'),
-(1, 'math', '数学作业：口算题卡 20 道', 'completed', '2026-03-11'),
-(1, 'english', '英语作业：背诵单词 Unit 1', 'pending', '2026-03-11');
+(1, 'chinese', '语文作业：完成练习册第 5 页，背诵古诗《春晓》', 'pending', '2026-03-12'),
+(1, 'math', '数学作业：口算题卡 20 道', 'completed', '2026-03-12'),
+(1, 'english', '英语作业：背诵单词 Unit 1', 'pending', '2026-03-12');
 
+-- 插入测试错题
 INSERT INTO `mistakes` (`student_id`, `subject`, `question`, `user_answer`, `correct_answer`, `error_type`, `knowledge_point`, `reviewed`) VALUES 
 (1, 'math', '25 + 17 = ?', '32', '42', 'calculation_error', '两位数加法', 0),
 (1, 'math', '8 × 7 = ?', '54', '56', 'calculation_error', '乘法口诀', 0);
+
+-- 插入测试积分
+INSERT INTO `student_points` (`student_id`, `total_points`, `available_points`, `level`) VALUES 
+(1, 100, 100, 1);
+
+-- 插入测试积分记录
+INSERT INTO `point_records` (`student_id`, `points`, `point_type`, `description`) VALUES 
+(1, 100, 'checkin', '初始积分');
+
+-- 插入测试成就
+INSERT INTO `achievements` (`name`, `description`, `achievement_type`, `level`, `icon`, `reward_points`) VALUES 
+('作业小能手', '完成 10 次作业', 'learning', 'bronze', '📚', 20),
+('打卡达人', '连续打卡 7 天', 'persistence', 'silver', '🔥', 50),
+('评估新人', '完成 1 次评估', 'learning', 'bronze', '📊', 10);
+
+-- ============================================================
+-- 结束
+-- ============================================================
