@@ -64,13 +64,13 @@ Page({
       // TODO: 调用后端 API
       // const res = await api.get(`/homeworks/${this.data.homeworkId}/submissions`)
       
-      // 模拟数据
+      // 模拟数据（用 emoji 代替图片）
       const mockSubmissions = [
         {
           id: 1,
           submitTime: '2026-03-11 20:30',
           isCorrect: null,
-          images: ['/images/homework1.jpg', '/images/homework2.jpg'],
+          imageEmojis: ['📝', '✏️'], // 用 emoji 代替图片
           feedback: '',
           checkedAt: ''
         }

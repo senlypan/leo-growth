@@ -42,14 +42,12 @@
         </view>
       </view>
 
-      <view class="submission-images" wx:if="{{item.images && item.images.length > 0}}">
-        <image class="submission-image" 
-               wx:for="{{item.images}}" 
-               wx:key="*this"
-               src="{{item}}" 
-               mode="aspectFill"
-               bindtap="previewImage"
-               data-src="{{item}}"></image>
+      <view class="submission-emojis" wx:if="{{item.imageEmojis && item.imageEmojis.length > 0}}">
+        <text class="submission-emoji" 
+              wx:for="{{item.imageEmojis}}" 
+              wx:key="*this">
+              {{item}}
+        </text>
       </view>
 
       <view class="submission-feedback" wx:if="{{item.feedback}}">

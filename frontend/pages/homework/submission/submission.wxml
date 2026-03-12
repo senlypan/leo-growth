@@ -58,15 +58,13 @@
           </view>
         </view>
 
-        <view class="submission-images" wx:if="{{item.images && item.images.length > 0}}">
-          <image class="submission-thumbnail" 
-                 wx:for="{{item.images}}" 
-                 wx:key="*this"
-                 wx:for-item="image"
-                 src="{{image}}" 
-                 mode="aspectFill"
-                 bindtap="previewImages"
-                 data-index="{{index}}"/>
+        <view class="submission-emojis" wx:if="{{item.imageEmojis && item.imageEmojis.length > 0}}">
+          <text class="submission-emoji" 
+                wx:for="{{item.imageEmojis}}" 
+                wx:key="*this"
+                wx:for-item="emoji">
+                {{emoji}}
+          </text>
         </view>
 
         <view class="submission-note" wx:if="{{item.content}}">
