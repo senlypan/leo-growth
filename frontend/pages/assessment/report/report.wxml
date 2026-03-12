@@ -1,0 +1,87 @@
+<!--pages/assessment/report/report.wxml - 评估报告-->
+<view class="container">
+  <!-- 报告头部 -->
+  <view class="report-header card">
+    <view class="header-info">
+      <text class="subject-icon">{{subjectIcon}}</text>
+      <view class="header-text">
+        <text class="subject-name">{{subjectName}}</text>
+        <text class="report-date">评估时间：{{reportDate}}</text>
+      </view>
+    </view>
+    <view class="score-section">
+      <view class="score-circle">
+        <text class="score-value">{{report.score}}</text>
+        <text class="score-label">总分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 能力维度分析 -->
+  <view class="radar-card card">
+    <view class="card-title">📊 能力维度分析</view>
+    <view class="radar-chart">
+      <canvas canvas-id="radarChart" class="radar-canvas"></canvas>
+    </view>
+    <view class="radar-legend">
+      <view class="legend-item" wx:for="{{radarData}}" wx:key="name">
+        <view class="legend-dot" style="background: {{item.color}}"></view>
+        <text class="legend-name">{{item.name}}</text>
+        <text class="legend-value">{{item.value}}分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优势分析 -->
+  <view class="strengths-card card" wx:if="{{report.strengths && report.strengths.length > 0}}">
+    <view class="card-title">💪 优势分析</view>
+    <view class="strength-list">
+      <view class="strength-item" wx:for="{{report.strengths}}" wx:key="name">
+        <view class="strength-icon">🌟</view>
+        <view class="strength-content">
+          <text class="strength-name">{{item.name}}</text>
+          <text class="strength-score">{{item.score}}分</text>
+        </view>
+        <view class="strength-bar">
+          <view class="strength-fill" style="width: {{item.score}}%"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 薄弱点 -->
+  <view class="weakness-card card" wx:if="{{report.weaknesses && report.weaknesses.length > 0}}">
+    <view class="card-title">⚠️ 需要加强</view>
+    <view class="weakness-list">
+      <view class="weakness-item" wx:for="{{report.weaknesses}}" wx:key="name">
+        <view class="weakness-icon">📚</view>
+        <view class="weakness-content">
+          <text class="weakness-name">{{item.name}}</text>
+          <text class="weakness-score">{{item.score}}分</text>
+        </view>
+        <view class="weakness-suggestion">{{item.suggestion}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 学习建议 -->
+  <view class="suggestions-card card">
+    <view class="card-title">📚 学习建议</view>
+    <view class="suggestion-list">
+      <view class="suggestion-item" wx:for="{{report.suggestions}}" wx:key="index">
+        <view class="suggestion-icon">{{item.icon}}</view>
+        <text class="suggestion-text">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <view class="action-btn retake-btn" bindtap="retake">
+      <text>🔄 重新评估</text>
+    </view>
+    <view class="action-btn back-btn" bindtap="goBack">
+      <text>← 返回</text>
+    </view>
+  </view>
+</view>

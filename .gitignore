@@ -1,0 +1,69 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+# 微信开发者工具
+.user/
+.tea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+logs/
+*.log
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 配置文件（包含敏感信息）
+backend/src/main/resources/application-local.yml
+*.local.yml
+
+# 测试数据
+test-data/
+mock-data/
+
+# 下载文件
+downloads/
+D:/Downloads/
+D:/jdk-17.zip
+D:/maven-3.9.6.zip
+
+# 安装目录（D 盘）
+D:/Java/
+D:/Maven/
+
+# OpenClaw 工作区状态
+.openclaw/workspace-state.json

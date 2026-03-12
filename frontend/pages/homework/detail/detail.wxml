@@ -1,0 +1,89 @@
+<!--pages/homework/detail/detail.wxml - 作业详情-->
+<view class="container">
+  <!-- 作业信息卡片 -->
+  <view class="homework-card card">
+    <view class="homework-header">
+      <view class="subject-badge {{homework.subject}}">
+        <text>{{subjectNames[homework.subject]}}</text>
+      </view>
+      <view class="status-badge {{homework.status}}">
+        <text>{{statusNames[homework.status]}}</text>
+      </view>
+    </view>
+
+    <view class="homework-content">
+      <text class="content-label">作业内容：</text>
+      <text class="content-text">{{homework.content}}</text>
+    </view>
+
+    <view class="homework-meta">
+      <view class="meta-item">
+        <text class="meta-icon">📅</text>
+        <text class="meta-text">布置日期：{{homework.assignDate}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-icon">⏰</text>
+        <text class="meta-text">截止日期：{{homework.dueDate}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交记录 -->
+  <view class="section-title">
+    <text class="title-text">提交记录</text>
+  </view>
+
+  <view class="submissions" wx:if="{{submissions.length > 0}}">
+    <view class="submission-card card" wx:for="{{submissions}}" wx:key="id">
+      <view class="submission-header">
+        <text class="submission-time">{{item.submitTime}}</text>
+        <view class="submission-status {{item.isCorrect ? 'correct' : 'incorrect'}}">
+          <text>{{item.isCorrect ? '✓ 正确' : '✗ 需订正'}}</text>
+        </view>
+      </view>
+
+      <view class="submission-images" wx:if="{{item.images && item.images.length > 0}}">
+        <image class="submission-image" 
+               wx:for="{{item.images}}" 
+               wx:key="*this"
+               src="{{item}}" 
+               mode="aspectFill"
+               bindtap="previewImage"
+               data-src="{{item}}"></image>
+      </view>
+
+      <view class="submission-feedback" wx:if="{{item.feedback}}">
+        <text class="feedback-label">老师反馈：</text>
+        <text class="feedback-text">{{item.feedback}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">📝</text>
+    <text class="empty-text">暂无提交记录</text>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <view class="btn btn-primary" 
+          wx:if="{{homework.status === 'pending'}}" 
+          bindtap="goToSubmit">
+      <text>📸 提交作业</text>
+    </view>
+    <view class="btn btn-warning" 
+          wx:if="{{homework.status === 'completed'}}" 
+          bindtap="goToCheck">
+      <text>👨‍🏫 检查作业</text>
+    </view>
+    <view class="btn btn-secondary" 
+          wx:if="{{homework.status === 'completed'}}" 
+          bindtap="goToSubmit">
+      <text>🔄 重新提交</text>
+    </view>
+    <view class="btn btn-info" 
+          bindtap="goToSubmission">
+      <text>📋 提交记录</text>
+    </view>
+  </view>
+</view>

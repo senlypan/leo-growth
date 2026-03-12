@@ -1,0 +1,62 @@
+<!--pages/study/study.wxml - 学业规划首页-->
+<view class="container">
+  <!-- 欢迎卡片 -->
+  <view class="welcome-card card">
+    <view class="welcome-header">
+      <text class="welcome-emoji">📖</text>
+      <text class="welcome-title">学业规划师</text>
+    </view>
+    <text class="welcome-subtitle">科学规划学习路径，让孩子学习更高效</text>
+  </view>
+
+  <!-- 能力评估入口 -->
+  <view class="module-card assessment" bindtap="goToAssessment">
+    <view class="module-icon">📊</view>
+    <view class="module-info">
+      <text class="module-name">能力评估</text>
+      <text class="module-desc">了解孩子的学习能力，识别优势和薄弱点</text>
+    </view>
+    <view class="module-arrow">→</view>
+  </view>
+
+  <!-- 学习路径入口 -->
+  <view class="module-card path" bindtap="goToPath">
+    <view class="module-icon">🗺️</view>
+    <view class="module-info">
+      <text class="module-name">学习路径</text>
+      <text class="module-desc">清晰的知识点地图，规划学习顺序</text>
+    </view>
+    <view class="module-arrow">→</view>
+  </view>
+
+  <!-- 目标管理入口 -->
+  <view class="module-card goals" bindtap="goToGoals">
+    <view class="module-icon">🎯</view>
+    <view class="module-info">
+      <text class="module-name">目标管理</text>
+      <text class="module-desc">制定学习目标，跟踪进度，培养成就感</text>
+    </view>
+    <view class="module-arrow">→</view>
+  </view>
+
+  <!-- 学习报告入口 -->
+  <view class="module-card report" bindtap="goToReport">
+    <view class="module-icon">📈</view>
+    <view class="module-info">
+      <text class="module-name">学习报告</text>
+      <text class="module-desc">全面的学习数据分析，了解学习情况</text>
+    </view>
+    <view class="module-arrow">→</view>
+  </view>
+
+  <!-- 学业规划（待开发） -->
+  <view class="module-card plan disabled">
+    <view class="module-icon">📋</view>
+    <view class="module-info">
+      <text class="module-name">学业规划</text>
+      <text class="module-desc">根据能力评估，智能生成学习规划</text>
+      <text class="module-tag">开发中</text>
+    </view>
+    <view class="module-lock">🔒</view>
+  </view>
+</view>

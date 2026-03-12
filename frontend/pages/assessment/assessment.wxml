@@ -1,0 +1,132 @@
+<!--pages/assessment/assessment.wxml - 能力评估-->
+<view class="container">
+  <!-- 科目选择 -->
+  <view class="subject-selector card">
+    <view class="selector-title">📊 选择评估科目</view>
+    <view class="subject-grid">
+      <view class="subject-item {{currentSubject === 'chinese' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="chinese">
+        <text class="subject-icon">📖</text>
+        <text class="subject-name">语文</text>
+      </view>
+      <view class="subject-item {{currentSubject === 'math' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="math">
+        <text class="subject-icon">🔢</text>
+        <text class="subject-name">数学</text>
+      </view>
+      <view class="subject-item {{currentSubject === 'english' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="english">
+        <text class="subject-icon">🔤</text>
+        <text class="subject-name">英语</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评估介绍 -->
+  <view class="intro-card card" wx:if="{{!hasStarted}}">
+    <view class="intro-title">📝 评估说明</view>
+    <view class="intro-content">
+      <text class="intro-text">• 共 20 道题，预计用时 10-15 分钟</text>
+      <text class="intro-text">• 题目难度会逐渐增加</text>
+      <text class="intro-text">• 完成后会生成详细的能力报告</text>
+      <text class="intro-text">• 建议在孩子状态好的时候进行</text>
+    </view>
+    <view class="start-btn" bindtap="startAssessment">
+      <text>🚀 开始评估</text>
+    </view>
+  </view>
+
+  <!-- 评估中 -->
+  <view class="assessment-card card" wx:if="{{isAssessing}}">
+    <!-- 进度条 -->
+    <view class="progress-section">
+      <view class="progress-info">
+        <text class="question-count">第 {{currentIndex + 1}} 题 / 共 {{questions.length}} 题</text>
+        <text class="progress-percent">{{progress}}%</text>
+      </view>
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
+    </view>
+
+    <!-- 题目内容 -->
+    <view class="question-section">
+      <view class="question-type">{{currentQuestion.questionType}}</view>
+      <view class="question-content">{{currentQuestion.questionContent}}</view>
+      
+      <!-- 选项 -->
+      <view class="options-section" wx:if="{{currentQuestion.options}}">
+        <view class="option-item {{selectedOption === index ? 'selected' : ''}}" 
+              wx:for="{{currentQuestion.options}}" 
+              wx:key="*this"
+              wx:for-index="index"
+              bindtap="selectOption" 
+              data-index="{{index}}">
+          <view class="option-mark">{{['A', 'B', 'C', 'D'][index]}}</view>
+          <text class="option-text">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 输入框（填空题） -->
+      <view class="input-section" wx:if="{{currentQuestion.questionType === '填空题'}}">
+        <input class="answer-input" 
+               placeholder="请输入答案..." 
+               value="{{inputAnswer}}"
+               bindinput="onInputAnswer"/>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-section">
+      <view class="action-btn prev-btn" 
+            bindtap="prevQuestion" 
+            disabled="{{currentIndex === 0}}">
+        <text>⏮ 上一题</text>
+      </view>
+      <view class="action-btn next-btn" 
+            bindtap="nextQuestion" 
+            disabled="{{selectedOption === null && !inputAnswer}}">
+        <text>{{currentIndex === questions.length - 1 ? '✓ 提交' : '下一题 ⏭'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评估完成 -->
+  <view class="result-card card" wx:if="{{isCompleted}}">
+    <view class="result-header">
+      <text class="result-emoji">🎉</text>
+      <text class="result-title">评估完成！</text>
+    </view>
+    
+    <view class="score-section">
+      <view class="score-circle">
+        <text class="score-value">{{result.score}}</text>
+        <text class="score-label">总分</text>
+      </view>
+    </view>
+
+    <view class="result-details">
+      <view class="detail-item">
+        <text class="detail-label">答题数</text>
+        <text class="detail-value">{{result.answeredCount}}/{{result.totalCount}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">正确率</text>
+        <text class="detail-value {{result.accuracy >= 80 ? 'good' : 'normal'}}">{{result.accuracy}}%</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-label">用时</text>
+        <text class="detail-value">{{result.timeSpent}}分钟</text>
+      </view>
+    </view>
+
+    <view class="result-actions">
+      <view class="action-btn view-report-btn" bindtap="viewReport">
+        <text>📊 查看详细报告</text>
+      </view>
+      <view class="action-btn retake-btn" bindtap="retake">
+        <text>🔄 重新评估</text>
+      </view>
+    </view>
+  </view>
+</view>

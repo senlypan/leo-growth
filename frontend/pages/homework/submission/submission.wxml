@@ -1,0 +1,100 @@
+<!--pages/homework/submission/submission.wxml - 提交记录-->
+<view class="container">
+  <!-- 作业信息 -->
+  <view class="homework-card card">
+    <view class="homework-header">
+      <view class="subject-badge {{homework.subject}}">
+        <text>{{subjectNames[homework.subject]}}</text>
+      </view>
+      <view class="status-badge {{homework.status}}">
+        <text>{{statusNames[homework.status]}}</text>
+      </view>
+    </view>
+    <view class="homework-content">
+      <text class="content-label">📝 作业内容</text>
+      <text class="content-text">{{homework.content}}</text>
+    </view>
+    <view class="homework-footer">
+      <view class="date-item">
+        <text class="date-icon">📅</text>
+        <text class="date-text">布置日期：{{homework.assignDate}}</text>
+      </view>
+      <view class="date-item" wx:if="{{homework.dueDate}}">
+        <text class="date-icon">⏰</text>
+        <text class="date-text">截止日期：{{homework.dueDate}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交记录列表 -->
+  <view class="submissions-section">
+    <view class="section-title">📋 提交记录</view>
+    
+    <!-- 空状态 -->
+    <view class="empty" wx:if="{{submissions.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无提交记录</text>
+      <text class="empty-hint">快去完成作业并提交吧～</text>
+      <button class="submit-btn" wx:if="{{homework.status === 'pending'}}" bindtap="goToSubmit">
+        <text>✏️ 提交作业</text>
+      </button>
+    </view>
+
+    <!-- 提交记录 -->
+    <view class="submission-list" wx:else>
+      <view class="submission-item card" 
+            wx:for="{{submissions}}" 
+            wx:key="id"
+            bindtap="viewSubmissionDetail"
+            data-id="{{item.id}}">
+        
+        <view class="submission-header">
+          <view class="submission-time">
+            <text class="time-icon">🕐</text>
+            <text class="time-text">{{item.submitTime}}</text>
+          </view>
+          <view class="submission-status {{item.isCorrect === true ? 'correct' : (item.isCorrect === false ? 'incorrect' : 'pending')}}">
+            <text>{{item.isCorrect === true ? '✅ 正确' : (item.isCorrect === false ? '❌ 需订正' : '⏳ 待检查')}}</text>
+          </view>
+        </view>
+
+        <view class="submission-images" wx:if="{{item.images && item.images.length > 0}}">
+          <image class="submission-thumbnail" 
+                 wx:for="{{item.images}}" 
+                 wx:key="*this"
+                 wx:for-item="image"
+                 src="{{image}}" 
+                 mode="aspectFill"
+                 bindtap="previewImages"
+                 data-index="{{index}}"/>
+        </view>
+
+        <view class="submission-note" wx:if="{{item.content}}">
+          <text class="note-label">📝 说明：</text>
+          <text class="note-text">{{item.content}}</text>
+        </view>
+
+        <view class="submission-feedback" wx:if="{{item.feedback}}">
+          <view class="feedback-label">👨‍🏫 家长反馈</view>
+          <view class="feedback-text">{{item.feedback}}</view>
+          <view class="feedback-score" wx:if="{{item.score}}">
+            <text class="score-icon">⭐</text>
+            <text class="score-text">{{item.score}}分</text>
+          </view>
+        </view>
+
+        <view class="submission-checked" wx:if="{{item.checkedAt}}">
+          <text class="checked-icon">✅</text>
+          <text class="checked-text">已检查：{{item.checkedAt}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="action-bar" wx:if="{{homework.status !== 'checked' && submissions.length > 0}}">
+    <button class="action-btn" bindtap="goToSubmit">
+      <text>🔄 重新提交</text>
+    </button>
+  </view>
+</view>

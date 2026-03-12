@@ -1,0 +1,251 @@
+/* pages/homework/homework.wxss - 作业列表样式 */
+
+/* 筛选栏 */
+.filter-bar {
+  padding: 20rpx;
+}
+
+.filter-row {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-item {
+  flex: 1;
+  padding: 12rpx 20rpx;
+  background: var(--bg-color);
+  border-radius: 20rpx;
+  text-align: center;
+  border: 2rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.filter-item text {
+  font-size: 24rpx;
+  color: var(--text-light);
+}
+
+.filter-item.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.filter-item.active text {
+  color: var(--white);
+}
+
+/* 日期选择 */
+.date-selector {
+  padding: 20rpx;
+  display: flex;
+  gap: 20rpx;
+}
+
+.date-item {
+  flex: 1;
+  padding: 20rpx;
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, rgba(78, 205, 196, 0.05) 100%);
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  border: 2rpx solid transparent;
+  transition: all 0.2s;
+}
+
+.date-item.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  border-color: var(--primary-color);
+}
+
+.date-text {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.date-item.active .date-text {
+  color: var(--white);
+}
+
+.date-sub {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.date-item.active .date-sub {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 作业列表 */
+.homework-list {
+  margin-top: 20rpx;
+}
+
+.homework-card {
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  transition: all 0.2s;
+}
+
+.homework-card:active {
+  transform: scale(0.98);
+}
+
+.homework-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.subject-badge {
+  padding: 6rpx 16rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+  font-weight: bold;
+}
+
+.subject-badge.chinese {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.subject-badge.math {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.subject-badge.english {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.status-badge {
+  padding: 6rpx 16rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+}
+
+.status-badge.pending {
+  background: rgba(243, 156, 18, 0.15);
+  color: #f39c12;
+}
+
+.status-badge.completed {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.status-badge.checked {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.homework-content {
+  margin-bottom: 20rpx;
+}
+
+.homework-text {
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.homework-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.homework-time {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex: 1;
+}
+
+.time-icon {
+  font-size: 24rpx;
+}
+
+.time-text {
+  font-size: 22rpx;
+  color: var(--text-muted);
+}
+
+.homework-actions {
+  display: flex;
+  gap: 12rpx;
+}
+
+.action-btn {
+  padding: 10rpx 20rpx;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.action-btn:active {
+  transform: scale(0.95);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: var(--white);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.check-btn {
+  background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+  color: var(--white);
+  box-shadow: 0 4rpx 12rpx rgba(243, 156, 18, 0.3);
+}
+
+.view-btn {
+  background: var(--bg-color);
+  color: var(--text-light);
+  border: 1rpx solid #ddd;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 100rpx;
+  margin-bottom: 24rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: var(--text-color);
+  margin-bottom: 12rpx;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: var(--text-muted);
+}
+
+/* 加载状态 */
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 40rpx;
+  color: var(--text-muted);
+  font-size: 26rpx;
+}

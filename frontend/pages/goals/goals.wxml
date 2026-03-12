@@ -1,0 +1,154 @@
+<!--pages/goals/goals.wxml - 目标管理-->
+<view class="container">
+  <!-- 统计卡片 -->
+  <view class="stats-card card">
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-value">{{stats.total}}</text>
+        <text class="stat-label">总目标</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-value {{stats.active}}">{{stats.active}}</text>
+        <text class="stat-label">进行中</text>
+      </view>
+      <view class="stat-divider"></view>
+      <view class="stat-item">
+        <text class="stat-value {{stats.completed}}">{{stats.completed}}</text>
+        <text class="stat-label">已完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar card">
+    <view class="filter-item {{currentFilter === 'all' ? 'active' : ''}}" 
+          bindtap="selectFilter" data-filter="all">
+      <text>全部</text>
+    </view>
+    <view class="filter-item {{currentFilter === 'active' ? 'active' : ''}}" 
+          bindtap="selectFilter" data-filter="active">
+      <text>进行中</text>
+    </view>
+    <view class="filter-item {{currentFilter === 'completed' ? 'active' : ''}}" 
+          bindtap="selectFilter" data-filter="completed">
+      <text>已完成</text>
+    </view>
+  </view>
+
+  <!-- 目标列表 -->
+  <view class="goals-list">
+    <!-- 空状态 -->
+    <view class="empty" wx:if="{{goals.length === 0}}">
+      <text class="empty-icon">🎯</text>
+      <text class="empty-text">暂无目标</text>
+      <text class="empty-hint">添加第一个学习目标吧～</text>
+      <view class="add-btn" bindtap="showAddModal">
+        <text>➕ 添加目标</text>
+      </view>
+    </view>
+
+    <!-- 目标卡片 -->
+    <view class="goal-card card" 
+          wx:for="{{goals}}" 
+          wx:key="id"
+          wx:for-index="index">
+      <view class="goal-header">
+        <view class="goal-icon">{{item.goalType === 'long-term' ? '🎯' : '📍'}}</view>
+        <view class="goal-info">
+          <text class="goal-title">{{item.goalTitle}}</text>
+          <text class="goal-desc">{{item.goalDescription}}</text>
+        </view>
+        <view class="goal-status {{item.status}}">
+          <text wx:if="{{item.status === 'active'}}">进行中</text>
+          <text wx:elif="{{item.status === 'completed'}}">✅</text>
+        </view>
+      </view>
+
+      <view class="goal-progress">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{item.progress}}%"></view>
+        </view>
+        <view class="progress-text">{{item.progress}}%</view>
+      </view>
+
+      <view class="goal-footer">
+        <view class="goal-date">
+          <text class="date-icon">📅</text>
+          <text class="date-text">截止：{{item.targetDate}}</text>
+        </view>
+        <view class="goal-actions" wx:if="{{item.status === 'active'}}">
+          <view class="action-btn update-btn" bindtap="updateProgress" data-id="{{item.id}}">
+            <text>更新进度</text>
+          </view>
+          <view class="action-btn complete-btn" bindtap="markComplete" data-id="{{item.id}}">
+            <text>完成</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <view class="fab-btn" bindtap="showAddModal" wx:if="{{goals.length > 0}}">
+    <text>➕</text>
+  </view>
+
+  <!-- 添加目标弹窗 -->
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-mask" bindtap="hideModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">🎯 添加目标</view>
+      
+      <view class="form-group">
+        <text class="form-label">目标类型</text>
+        <view class="radio-group">
+          <view class="radio-item {{form.goalType === 'short-term' ? 'active' : ''}}" 
+                bindtap="selectType" data-type="short-term">
+            <text>📍 短期目标</text>
+          </view>
+          <view class="radio-item {{form.goalType === 'long-term' ? 'active' : ''}}" 
+                bindtap="selectType" data-type="long-term">
+            <text>🎯 长期目标</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">目标标题</text>
+        <input class="form-input" 
+               placeholder="例如：背诵 10 首古诗" 
+               value="{{form.goalTitle}}"
+               bindinput="onTitleInput"/>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">目标描述</text>
+        <textarea class="form-textarea" 
+                  placeholder="详细描述你的目标..." 
+                  value="{{form.goalDescription}}"
+                  bindinput="onDescInput"
+                  maxlength="200"/>
+      </view>
+
+      <view class="form-group">
+        <text class="form-label">截止日期</text>
+        <picker mode="date" value="{{form.targetDate}}" bindchange="onDateChange">
+          <view class="form-picker">
+            <text>{{form.targetDate || '选择日期'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="modal-actions">
+        <view class="action-btn cancel-btn" bindtap="hideModal">
+          <text>取消</text>
+        </view>
+        <view class="action-btn confirm-btn" bindtap="addGoal">
+          <text>确定</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

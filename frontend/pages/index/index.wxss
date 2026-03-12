@@ -1,0 +1,155 @@
+/* pages/index/index.wxss - 首页样式 */
+
+/* 欢迎卡片 */
+.welcome-card {
+  background: linear-gradient(135deg, #4ECDC4 0%, #45B7AF 100%);
+  color: white;
+}
+
+.welcome-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.welcome-emoji {
+  font-size: 64rpx;
+  margin-right: 20rpx;
+}
+
+.welcome-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.welcome-subtitle {
+  font-size: 24rpx;
+  opacity: 0.9;
+}
+
+/* 统计行 */
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16rpx;
+  padding: 20rpx 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 6rpx;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  opacity: 0.8;
+}
+
+.stat-divider {
+  width: 2rpx;
+  height: 60rpx;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 模块标题 */
+.section-title {
+  margin: 30rpx 0 20rpx;
+}
+
+.title-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  padding-left: 12rpx;
+  border-left: 6rpx solid #4ECDC4;
+}
+
+/* 模块网格 */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.module-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  transition: all 0.2s;
+}
+
+.module-card:active {
+  transform: scale(0.95);
+}
+
+.module-icon {
+  font-size: 56rpx;
+  margin-bottom: 16rpx;
+}
+
+.module-name {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.module-desc {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.module-card.homework .module-icon {
+  filter: drop-shadow(0 4rpx 8rpx rgba(78, 205, 196, 0.3));
+}
+
+.module-card.study .module-icon {
+  filter: drop-shadow(0 4rpx 8rpx rgba(255, 107, 107, 0.3));
+}
+
+.module-card.fitness .module-icon {
+  filter: drop-shadow(0 4rpx 8rpx rgba(46, 204, 113, 0.3));
+}
+
+/* 快捷功能 */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+
+.quick-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-icon {
+  font-size: 44rpx;
+  margin-bottom: 12rpx;
+}
+
+.quick-text {
+  font-size: 22rpx;
+  color: #666;
+}

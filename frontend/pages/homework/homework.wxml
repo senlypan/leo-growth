@@ -1,0 +1,127 @@
+<!--pages/homework/homework.wxml - 作业列表-->
+<view class="container">
+  <!-- 顶部筛选栏 -->
+  <view class="filter-bar card">
+    <view class="filter-row">
+      <view class="filter-item {{currentSubject === 'all' ? 'active' : ''}}" 
+            bindtap="selectSubject" 
+            data-subject="all">
+        <text>全部</text>
+      </view>
+      <view class="filter-item {{currentSubject === 'chinese' ? 'active' : ''}}" 
+            bindtap="selectSubject" 
+            data-subject="chinese">
+        <text>📖 语文</text>
+      </view>
+      <view class="filter-item {{currentSubject === 'math' ? 'active' : ''}}" 
+            bindtap="selectSubject" 
+            data-subject="math">
+        <text>🔢 数学</text>
+      </view>
+      <view class="filter-item {{currentSubject === 'english' ? 'active' : ''}}" 
+            bindtap="selectSubject" 
+            data-subject="english">
+        <text>🔤 英语</text>
+      </view>
+    </view>
+    
+    <view class="filter-row">
+      <view class="filter-item {{currentStatus === 'all' ? 'active' : ''}}" 
+            bindtap="selectStatus" 
+            data-status="all">
+        <text>全部</text>
+      </view>
+      <view class="filter-item {{currentStatus === 'pending' ? 'active' : ''}}" 
+            bindtap="selectStatus" 
+            data-status="pending">
+        <text>⏳ 未完成</text>
+      </view>
+      <view class="filter-item {{currentStatus === 'completed' ? 'active' : ''}}" 
+            bindtap="selectStatus" 
+            data-status="completed">
+        <text>✅ 已完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 日期选择 -->
+  <view class="date-selector card">
+    <view class="date-item {{selectedDate === today ? 'active' : ''}}" bindtap="selectDate" data-date="{{today}}">
+      <text class="date-text">今天</text>
+      <text class="date-sub">{{todayStr}}</text>
+    </view>
+    <view class="date-item {{selectedDate === tomorrow ? 'active' : ''}}" bindtap="selectDate" data-date="{{tomorrow}}">
+      <text class="date-text">明天</text>
+      <text class="date-sub">{{tomorrowStr}}</text>
+    </view>
+    <view class="date-item" bindtap="showDatePicker">
+      <text class="date-text">📅</text>
+      <text class="date-sub">选择日期</text>
+    </view>
+  </view>
+
+  <!-- 作业列表 -->
+  <view class="homework-list">
+    <!-- 空状态 -->
+    <view class="empty" wx:if="{{homeworkList.length === 0}}">
+      <text class="empty-icon">📝</text>
+      <text class="empty-text">暂无作业</text>
+      <text class="empty-hint">好好休息一下吧～</text>
+    </view>
+
+    <!-- 作业卡片 -->
+    <view class="homework-card card" 
+          wx:for="{{homeworkList}}" 
+          wx:key="id"
+          bindtap="goToDetail"
+          data-id="{{item.id}}">
+      
+      <view class="homework-header">
+        <view class="subject-badge {{item.subject}}">
+          <text>{{subjectNames[item.subject]}}</text>
+        </view>
+        <view class="status-badge {{item.status}}">
+          <text>{{statusNames[item.status]}}</text>
+        </view>
+      </view>
+
+      <view class="homework-content">
+        <text class="homework-text">{{item.content}}</text>
+      </view>
+
+      <view class="homework-footer">
+        <view class="homework-time">
+          <text class="time-icon">⏰</text>
+          <text class="time-text">截止：{{item.dueDate}}</text>
+        </view>
+        <view class="homework-actions">
+          <view class="action-btn submit-btn" 
+                wx:if="{{item.status === 'pending'}}"
+                bindtap="goToSubmit" 
+                data-id="{{item.id}}"
+                catchtap="true">
+            <text>✏️ 提交</text>
+          </view>
+          <view class="action-btn check-btn" 
+                wx:if="{{item.status === 'completed'}}"
+                bindtap="goToCheck" 
+                data-id="{{item.id}}"
+                catchtap="true">
+            <text>👨‍🏫 检查</text>
+          </view>
+          <view class="action-btn view-btn" 
+                bindtap="goToSubmission" 
+                data-id="{{item.id}}"
+                catchtap="true">
+            <text>📋 记录</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

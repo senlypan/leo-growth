@@ -1,0 +1,119 @@
+<!--pages/learning/path/path.wxml - 学习路径-->
+<view class="container">
+  <!-- 科目选择 -->
+  <view class="subject-selector card">
+    <view class="selector-title">📖 选择科目</view>
+    <view class="subject-tabs">
+      <view class="tab-item {{currentSubject === 'chinese' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="chinese">
+        <text>📖 语文</text>
+      </view>
+      <view class="tab-item {{currentSubject === 'math' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="math">
+        <text>🔢 数学</text>
+      </view>
+      <view class="tab-item {{currentSubject === 'english' ? 'active' : ''}}" 
+            bindtap="selectSubject" data-subject="english">
+        <text>🔤 英语</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 进度概览 -->
+  <view class="progress-card card">
+    <view class="progress-header">
+      <text class="progress-title">学习进度</text>
+      <text class="progress-percent">{{progress}}%</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+    <view class="progress-stats">
+      <view class="stat-item">
+        <text class="stat-value">{{learnedCount}}</text>
+        <text class="stat-label">已掌握</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{learningCount}}</text>
+        <text class="stat-label">学习中</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{pendingCount}}</text>
+        <text class="stat-label">待学习</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 知识点地图 -->
+  <view class="knowledge-map card">
+    <view class="map-title">📚 知识点地图</view>
+    <view class="map-list">
+      <view class="map-item {{item.status}}" 
+            wx:for="{{knowledgePoints}}" 
+            wx:key="id"
+            wx:for-index="index">
+        <view class="item-header">
+          <view class="item-icon">
+            <text wx:if="{{item.status === 'learned'}}">✅</text>
+            <text wx:elif="{{item.status === 'learning'}}">🟡</text>
+            <text wx:else>⚪</text>
+          </view>
+          <view class="item-content" bindtap="toggleExpand" data-index="{{index}}">
+            <text class="item-name">{{item.name}}</text>
+            <text class="item-arrow">{{item.expanded ? '▲' : '▼'}}</text>
+          </view>
+        </view>
+        
+        <!-- 子知识点 -->
+        <view class="item-children" wx:if="{{item.expanded && item.children}}">
+          <view class="child-item {{child.status}}" 
+                wx:for="{{item.children}}" 
+                wx:key="id"
+                wx:for-index="cIndex">
+            <view class="child-icon">
+              <text wx:if="{{child.status === 'learned'}}">✓</text>
+              <text wx:elif="{{child.status === 'learning'}}">◐</text>
+              <text wx:else>○</text>
+            </view>
+            <text class="child-name">{{child.name}}</text>
+            <view class="child-action" 
+                  wx:if="{{child.status !== 'learned'}}"
+                  bindtap="markLearned" 
+                  data-point-id="{{child.id}}">
+              <text>标记已掌握</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 下一步推荐 -->
+  <view class="next-step-card card" wx:if="{{nextStep}}">
+    <view class="step-title">📌 下一步推荐</view>
+    <view class="step-content">
+      <text class="step-name">{{nextStep.pointName}}</text>
+      <text class="step-desc">{{nextStep.description}}</text>
+      <view class="step-meta">
+        <view class="meta-item">
+          <text class="meta-icon">⭐</text>
+          <text class="meta-text">难度：{{'★'.repeat(nextStep.difficulty)}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-icon">⏰</text>
+          <text class="meta-text">预计：{{nextStep.estimatedTime}}分钟</text>
+        </view>
+      </view>
+      <view class="step-action" bindtap="startLearning">
+        <text>🚀 开始学习</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{knowledgePoints.length === 0}}">
+    <text class="empty-icon">📚</text>
+    <text class="empty-text">暂无学习路径</text>
+    <text class="empty-hint">选择科目开始学习吧～</text>
+  </view>
+</view>

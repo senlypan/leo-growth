@@ -1,0 +1,253 @@
+/* pages/homework/detail/detail.wxss - 作业详情样式 */
+
+.homework-card {
+  padding: 30rpx;
+}
+
+.homework-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.subject-badge {
+  padding: 8rpx 20rpx;
+  border-radius: 16rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.subject-badge.chinese {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.subject-badge.math {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.subject-badge.english {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.status-badge {
+  padding: 8rpx 20rpx;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+}
+
+.status-badge.pending {
+  background: rgba(243, 156, 18, 0.15);
+  color: #f39c12;
+}
+
+.status-badge.completed {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.status-badge.checked {
+  background: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.homework-content {
+  margin-bottom: 30rpx;
+}
+
+.content-label {
+  font-size: 26rpx;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.content-text {
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: var(--text-color);
+}
+
+.homework-meta {
+  padding-top: 24rpx;
+  border-top: 2rpx solid var(--border-color);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.meta-item:last-child {
+  margin-bottom: 0;
+}
+
+.meta-icon {
+  font-size: 28rpx;
+}
+
+.meta-text {
+  font-size: 24rpx;
+  color: var(--text-light);
+}
+
+/* 章节标题 */
+.section-title {
+  margin: 30rpx 0 20rpx;
+}
+
+.title-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  padding-left: 12rpx;
+  border-left: 6rpx solid #4ECDC4;
+}
+
+/* 提交记录 */
+.submissions {
+  margin-bottom: 120rpx;
+}
+
+.submission-card {
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.submission-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.submission-time {
+  font-size: 24rpx;
+  color: var(--text-muted);
+}
+
+.submission-status {
+  padding: 6rpx 16rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+}
+
+.submission-status.correct {
+  background: rgba(46, 204, 113, 0.15);
+  color: #2ecc71;
+}
+
+.submission-status.incorrect {
+  background: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.submission-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.submission-image {
+  width: 100%;
+  height: 200rpx;
+  border-radius: 12rpx;
+  background: var(--bg-color);
+}
+
+.submission-feedback {
+  padding: 16rpx;
+  background: rgba(52, 152, 219, 0.1);
+  border-radius: 12rpx;
+  border-left: 4rpx solid #3498db;
+}
+
+.feedback-label {
+  font-size: 24rpx;
+  color: #3498db;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.feedback-text {
+  font-size: 26rpx;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 40rpx;
+  margin-bottom: 120rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: var(--text-muted);
+}
+
+/* 底部操作栏 */
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx;
+  background: var(--white);
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 16rpx;
+  justify-content: center;
+  z-index: 100;
+}
+
+.btn {
+  flex: 1;
+  max-width: 200rpx;
+  padding: 18rpx 24rpx;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: var(--white);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+  color: var(--white);
+  box-shadow: 0 4rpx 12rpx rgba(243, 156, 18, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  color: var(--white);
+}
+
+.btn-info {
+  background: var(--bg-color);
+  color: var(--text-light);
+  border: 1rpx solid #ddd;
+}

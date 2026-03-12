@@ -1,0 +1,112 @@
+<!--pages/mistakes/submit/submit.wxml - 录入错题-->
+<view class="container">
+  <view class="form-card card">
+    <!-- 科目选择 -->
+    <view class="form-section">
+      <view class="section-title">📚 选择科目</view>
+      <view class="subject-selector">
+        <view class="subject-option {{currentSubject === 'chinese' ? 'active' : ''}}"
+              bindtap="selectSubject" data-subject="chinese">
+          <text>📖 语文</text>
+        </view>
+        <view class="subject-option {{currentSubject === 'math' ? 'active' : ''}}"
+              bindtap="selectSubject" data-subject="math">
+          <text>🔢 数学</text>
+        </view>
+        <view class="subject-option {{currentSubject === 'english' ? 'active' : ''}}"
+              bindtap="selectSubject" data-subject="english">
+          <text>🔤 英语</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 题目内容 -->
+    <view class="form-section">
+      <view class="section-title">📝 题目内容</view>
+      <textarea class="input-area"
+                placeholder="请输入题目内容..."
+                value="{{question}}"
+                bindinput="onQuestionInput"
+                maxlength="500"
+                auto-height/>
+    </view>
+
+    <!-- 用户答案 -->
+    <view class="form-section">
+      <view class="section-title">✏️ 你的答案</view>
+      <input class="input-field"
+             placeholder="请输入你的答案"
+             value="{{userAnswer}}"
+             bindinput="onUserAnswerInput"/>
+    </view>
+
+    <!-- 正确答案 -->
+    <view class="form-section">
+      <view class="section-title">✅ 正确答案</view>
+      <input class="input-field"
+             placeholder="请输入正确答案"
+             value="{{correctAnswer}}"
+             bindinput="onCorrectAnswerInput"/>
+    </view>
+
+    <!-- 错误类型 -->
+    <view class="form-section">
+      <view class="section-title">🔍 错误类型</view>
+      <view class="error-type-selector">
+        <view class="error-type-option {{currentErrorType === 'calculation_error' ? 'active' : ''}}"
+              bindtap="selectErrorType" data-type="calculation_error">
+          <text>🧮 计算错误</text>
+        </view>
+        <view class="error-type-option {{currentErrorType === 'knowledge_error' ? 'active' : ''}}"
+              bindtap="selectErrorType" data-type="knowledge_error">
+          <text>📖 知识点错误</text>
+        </view>
+        <view class="error-type-option {{currentErrorType === 'memory_error' ? 'active' : ''}}"
+              bindtap="selectErrorType" data-type="memory_error">
+          <text>🧠 记忆错误</text>
+        </view>
+        <view class="error-type-option {{currentErrorType === 'careless_error' ? 'active' : ''}}"
+              bindtap="selectErrorType" data-type="careless_error">
+          <text>⚠️ 粗心错误</text>
+        </view>
+        <view class="error-type-option {{currentErrorType === 'understanding_error' ? 'active' : ''}}"
+              bindtap="selectErrorType" data-type="understanding_error">
+          <text>💡 理解错误</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 知识点 -->
+    <view class="form-section">
+      <view class="section-title">📌 知识点</view>
+      <input class="input-field"
+             placeholder="例如：两位数加法、古诗文、单词记忆..."
+             value="{{knowledgePoint}}"
+             bindinput="onKnowledgePointInput"/>
+    </view>
+
+    <!-- 上传图片 -->
+    <view class="form-section" wx:if="{{false}}">
+      <view class="section-title">📷 上传图片（可选）</view>
+      <view class="image-uploader">
+        <view class="upload-btn" bindtap="uploadImage">
+          <text class="upload-icon">➕</text>
+          <text class="upload-text">上传图片</text>
+        </view>
+        <view class="image-preview" wx:for="{{images}}" wx:key="*this">
+          <image class="preview-image" src="{{item}}" mode="aspectFill"/>
+          <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">
+            <text>✕</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-btn-wrapper">
+    <button class="submit-btn" bindtap="submitMistake" disabled="{{!canSubmit}}">
+      <text>💾 保存错题</text>
+    </button>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/homework/homework",
+    "pages/homework/detail/detail",
+    "pages/homework/submit/submit",
+    "pages/mistakes/mistakes",
+    "pages/mistakes/detail/detail",
+    "pages/report/report"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4ECDC4",
+    "navigationBarTitleText": "Leo Growth",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#4ECDC4",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/homework/homework",
+        "text": "作业",
+        "iconPath": "images/homework.png",
+        "selectedIconPath": "images/homework-active.png"
+      },
+      {
+        "pagePath": "pages/mistakes/mistakes",
+        "text": "错题",
+        "iconPath": "images/mistake.png",
+        "selectedIconPath": "images/mistake-active.png"
+      },
+      {
+        "pagePath": "pages/report/report",
+        "text": "报告",
+        "iconPath": "images/report.png",
+        "selectedIconPath": "images/report-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

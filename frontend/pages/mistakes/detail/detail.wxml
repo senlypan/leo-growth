@@ -1,0 +1,74 @@
+<!--pages/mistakes/detail/detail.wxml - 错题详情-->
+<view class="container">
+  <!-- 题目卡片 -->
+  <view class="question-card card">
+    <view class="question-header">
+      <view class="subject-badge {{mistake.subject}}">
+        <text>{{subjectNames[mistake.subject]}}</text>
+      </view>
+      <view class="status-badge {{mistake.reviewed ? 'reviewed' : 'unreviewed'}}">
+        <text>{{mistake.reviewed ? '✅ 已掌握' : '⏳ 待复习'}}</text>
+      </view>
+    </view>
+
+    <view class="question-content">
+      <view class="content-label">📝 题目</view>
+      <view class="content-text">{{mistake.question}}</view>
+    </view>
+
+    <view class="answer-section" wx:if="{{mistake.userAnswer}}">
+      <view class="answer-item incorrect">
+        <view class="answer-label">✏️ 你的答案</view>
+        <view class="answer-value">{{mistake.userAnswer}}</view>
+      </view>
+      <view class="answer-item correct">
+        <view class="answer-label">✅ 正确答案</view>
+        <view class="answer-value">{{mistake.correctAnswer}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分析卡片 -->
+  <view class="analysis-card card" wx:if="{{mistake.knowledgePoint || mistake.errorType}}">
+    <view class="card-title">🔍 错题分析</view>
+    
+    <view class="analysis-item" wx:if="{{mistake.knowledgePoint}}">
+      <view class="item-label">📌 知识点</view>
+      <view class="item-value">{{mistake.knowledgePoint}}</view>
+    </view>
+    
+    <view class="analysis-item" wx:if="{{mistake.errorType}}">
+      <view class="item-label">⚠️ 错误类型</view>
+      <view class="item-value">{{errorTypeNames[mistake.errorType]}}</view>
+    </view>
+
+    <view class="analysis-item" wx:if="{{mistake.analysis}}">
+      <view class="item-label">💡 解析</view>
+      <view class="item-value analysis-text">{{mistake.analysis}}</view>
+    </view>
+  </view>
+
+  <!-- 时间信息 -->
+  <view class="time-card card">
+    <view class="time-item">
+      <text class="time-icon">📅</text>
+      <text class="time-label">创建时间</text>
+      <text class="time-value">{{mistake.createTime}}</text>
+    </view>
+    <view class="time-item" wx:if="{{mistake.reviewTime}}">
+      <text class="time-icon">✅</text>
+      <text class="time-label">复习时间</text>
+      <text class="time-value">{{mistake.reviewTime}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="action-btn review-btn" bindtap="toggleReview">
+      <text>{{mistake.reviewed ? '↩️ 标记为待复习' : '✅ 标记为已掌握'}}</text>
+    </button>
+    <button class="action-btn delete-btn" bindtap="deleteMistake">
+      <text>🗑️ 删除</text>
+    </button>
+  </view>
+</view>
