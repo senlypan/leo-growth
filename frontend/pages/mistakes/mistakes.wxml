@@ -1,137 +1,157 @@
-<!--pages/mistakes/mistakes.wxml - 错题本-->
+<!--pages/mistakes/mistakes.wxml - 乔布斯设计版-->
 <view class="container">
-  <!-- 统计卡片 -->
-  <view class="stats-card card">
-    <view class="stats-row">
-      <view class="stat-item">
-        <text class="stat-value">{{stats.total}}</text>
-        <text class="stat-label">总题数</text>
-      </view>
-      <view class="stat-divider"></view>
-      <view class="stat-item">
-        <text class="stat-value">{{stats.unreviewed}}</text>
-        <text class="stat-label">待复习</text>
-      </view>
-      <view class="stat-divider"></view>
-      <view class="stat-item">
-        <text class="stat-value">{{stats.reviewed}}</text>
-        <text class="stat-label">已掌握</text>
-      </view>
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">❌ 错题本</text>
+    <text class="page-subtitle">温故而知新，可以为师矣</text>
+  </view>
+
+  <!-- 统计卡片 - 高端渐变 -->
+  <view class="stats-card-premium">
+    <view class="stat-item-premium">
+      <text class="stat-emoji">📊</text>
+      <text class="stat-value-gradient">{{stats.total}}</text>
+      <text class="stat-label">总题数</text>
+    </view>
+    <view class="stat-divider-vertical"></view>
+    <view class="stat-item-premium">
+      <text class="stat-emoji">⏳</text>
+      <text class="stat-value-gradient">{{stats.unreviewed}}</text>
+      <text class="stat-label">待复习</text>
+    </view>
+    <view class="stat-divider-vertical"></view>
+    <view class="stat-item-premium">
+      <text class="stat-emoji">✅</text>
+      <text class="stat-value-gradient">{{stats.reviewed}}</text>
+      <text class="stat-label">已掌握</text>
     </view>
   </view>
 
-  <!-- 筛选栏 -->
-  <view class="filter-bar card">
-    <view class="filter-row">
-      <view class="filter-item {{currentSubject === 'all' ? 'active' : ''}}" 
+  <!-- 筛选胶囊 -->
+  <view class="filter-capsules-premium">
+    <view class="capsule-row-premium">
+      <text class="filter-label">科目：</text>
+      <view class="capsule-premium {{currentSubject === 'all' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="all">
         <text>全部</text>
       </view>
-      <view class="filter-item {{currentSubject === 'chinese' ? 'active' : ''}}" 
+      <view class="capsule-premium {{currentSubject === 'chinese' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="chinese">
-        <text>📖 语文</text>
+        <text>📖</text>
       </view>
-      <view class="filter-item {{currentSubject === 'math' ? 'active' : ''}}" 
+      <view class="capsule-premium {{currentSubject === 'math' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="math">
-        <text>🔢 数学</text>
+        <text>🔢</text>
       </view>
-      <view class="filter-item {{currentSubject === 'english' ? 'active' : ''}}" 
+      <view class="capsule-premium {{currentSubject === 'english' ? 'active' : ''}}" 
             bindtap="selectSubject" 
             data-subject="english">
-        <text>🔤 英语</text>
+        <text>🔤</text>
       </view>
     </view>
     
-    <view class="filter-row">
-      <view class="filter-item {{currentStatus === 'all' ? 'active' : ''}}" 
+    <view class="capsule-row-premium">
+      <text class="filter-label">状态：</text>
+      <view class="capsule-premium {{currentStatus === 'all' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="all">
         <text>全部</text>
       </view>
-      <view class="filter-item {{currentStatus === 'unreviewed' ? 'active' : ''}}" 
+      <view class="capsule-premium {{currentStatus === 'unreviewed' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="unreviewed">
-        <text>⏳ 待复习</text>
+        <text>⏳</text>
       </view>
-      <view class="filter-item {{currentStatus === 'reviewed' ? 'active' : ''}}" 
+      <view class="capsule-premium {{currentStatus === 'reviewed' ? 'active' : ''}}" 
             bindtap="selectStatus" 
             data-status="reviewed">
-        <text>✅ 已掌握</text>
+        <text>✅</text>
       </view>
     </view>
   </view>
 
-  <!-- 快捷功能 -->
-  <view class="quick-actions card">
-    <view class="quick-item" bindtap="addMistake">
-      <text class="quick-icon">➕</text>
-      <text class="quick-text">录入错题</text>
+  <!-- 快捷功能 - 网格布局 -->
+  <view class="quick-actions-premium">
+    <view class="quick-item-premium" bindtap="addMistake">
+      <view class="quick-icon-circle">
+        <text class="quick-icon-emoji">➕</text>
+      </view>
+      <text class="quick-text-premium">录入</text>
     </view>
-    <view class="quick-item" bindtap="exportMistakes">
-      <text class="quick-icon">📤</text>
-      <text class="quick-text">导出错题</text>
+    <view class="quick-item-premium" bindtap="exportMistakes">
+      <view class="quick-icon-circle">
+        <text class="quick-icon-emoji">📤</text>
+      </view>
+      <text class="quick-text-premium">导出</text>
     </view>
-    <view class="quick-item" bindtap="mistakePractice">
-      <text class="quick-icon">📝</text>
-      <text class="quick-text">错题练习</text>
+    <view class="quick-item-premium" bindtap="mistakePractice">
+      <view class="quick-icon-circle">
+        <text class="quick-icon-emoji">📝</text>
+      </view>
+      <text class="quick-text-premium">练习</text>
     </view>
-    <view class="quick-item" bindtap="mistakeAnalysis">
-      <text class="quick-icon">📊</text>
-      <text class="quick-text">错题分析</text>
+    <view class="quick-item-premium" bindtap="mistakeAnalysis">
+      <view class="quick-icon-circle">
+        <text class="quick-icon-emoji">📊</text>
+      </view>
+      <text class="quick-text-premium">分析</text>
     </view>
   </view>
 
   <!-- 错题列表 -->
-  <view class="mistake-list">
+  <view class="mistake-list-premium">
     <!-- 空状态 -->
-    <view class="empty" wx:if="{{mistakeList.length === 0}}">
-      <text class="empty-icon">🎯</text>
-      <text class="empty-text">暂无错题</text>
-      <text class="empty-hint">太棒了！继续保持～</text>
+    <view class="empty-premium" wx:if="{{mistakeList.length === 0}}">
+      <text class="empty-emoji-huge">🎉</text>
+      <text class="empty-title-premium">暂无错题</text>
+      <text class="empty-desc-premium">太棒了！继续保持～</text>
     </view>
 
     <!-- 错题卡片 -->
-    <view class="mistake-card card" 
+    <view class="mistake-card-premium" 
           wx:for="{{mistakeList}}" 
           wx:key="id"
           bindtap="goToDetail"
           data-id="{{item.id}}">
       
-      <view class="mistake-header">
-        <view class="subject-badge {{item.subject}}">
+      <view class="mistake-card-header">
+        <view class="subject-badge-premium {{item.subject}}">
           <text>{{subjectNames[item.subject]}}</text>
         </view>
-        <view class="status-badge {{item.reviewed ? 'reviewed' : 'unreviewed'}}">
+        <view class="status-badge-premium {{item.reviewed ? 'reviewed' : 'unreviewed'}}">
           <text>{{item.reviewed ? '✅ 已掌握' : '⏳ 待复习'}}</text>
         </view>
       </view>
 
-      <view class="mistake-content">
-        <text class="content-label">题目：</text>
-        <text class="content-text">{{item.question}}</text>
+      <view class="mistake-card-content">
+        <view class="content-label-premium">
+          <text class="label-emoji">📝</text>
+          <text class="label-text">题目</text>
+        </view>
+        <text class="mistake-card-text">{{item.question}}</text>
       </view>
 
-      <view class="mistake-analysis" wx:if="{{item.userAnswer}}">
-        <view class="analysis-item">
-          <text class="analysis-label">你的答案：</text>
-          <text class="analysis-value incorrect">{{item.userAnswer}}</text>
+      <view class="mistake-card-answer" wx:if="{{item.userAnswer}}">
+        <view class="answer-item-premium incorrect">
+          <text class="answer-label">✏️ 你的答案</text>
+          <text class="answer-value">{{item.userAnswer}}</text>
         </view>
-        <view class="analysis-item">
-          <text class="analysis-label">正确答案：</text>
-          <text class="analysis-value correct">{{item.correctAnswer}}</text>
+        <view class="answer-item-premium correct">
+          <text class="answer-label">✅ 正确答案</text>
+          <text class="answer-value">{{item.correctAnswer}}</text>
         </view>
       </view>
 
-      <view class="mistake-footer">
-        <view class="mistake-time">
-          <text class="time-icon">📅</text>
+      <view class="mistake-card-footer">
+        <view class="mistake-card-time">
+          <text class="time-emoji">📅</text>
           <text class="time-text">{{item.createTime}}</text>
         </view>
-        <view class="mistake-tag" wx:if="{{item.knowledgePoint}}">
-          <text class="tag-icon">📌</text>
+        <view class="mistake-card-tag" wx:if="{{item.knowledgePoint}}">
+          <text class="tag-emoji">📌</text>
           <text class="tag-text">{{item.knowledgePoint}}</text>
         </view>
       </view>
@@ -139,7 +159,8 @@
   </view>
 
   <!-- 加载状态 -->
-  <view class="loading" wx:if="{{loading}}">
+  <view class="loading-premium" wx:if="{{loading}}">
+    <text class="loading-emoji">⏳</text>
     <text>加载中...</text>
   </view>
 </view>
