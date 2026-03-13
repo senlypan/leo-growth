@@ -1,0 +1,95 @@
+<!--pages/homework/add/add.wxml - 作业录入-->
+<view class="page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">录入作业</text>
+    <text class="page-subtitle">拍照上传，AI 智能识别</text>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form-card">
+    <!-- 科目选择 -->
+    <view class="form-section">
+      <text class="section-title">科目</text>
+      <view class="subject-selector">
+        <view class="subject-option {{subject === 'chinese' ? 'active' : ''}}" 
+              bindtap="selectSubject" data-subject="chinese">
+          <text>语文</text>
+        </view>
+        <view class="subject-option {{subject === 'math' ? 'active' : ''}}" 
+              bindtap="selectSubject" data-subject="math">
+          <text>数学</text>
+        </view>
+        <view class="subject-option {{subject === 'english' ? 'active' : ''}}" 
+              bindtap="selectSubject" data-subject="english">
+          <text>英语</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 拍照上传 -->
+    <view class="form-section">
+      <text class="section-title">作业照片</text>
+      <view class="upload-area">
+        <view class="upload-grid">
+          <view class="upload-item" wx:for="{{images}}" wx:key="*this">
+            <image class="upload-preview" src="{{item}}" mode="aspectFill" />
+            <view class="upload-delete" bindtap="deleteImage" data-index="{{index}}">
+              <text>✕</text>
+            </view>
+          </view>
+          <view class="upload-btn" bindtap="chooseImage" wx:if="{{images.length < 9}}">
+            <text class="upload-icon">📷</text>
+            <text class="upload-text">拍照上传</text>
+            <text class="upload-hint">支持 1-9 张</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- AI 识别结果 -->
+    <view class="form-section" wx:if="{{recognizedText}}">
+      <text class="section-title">AI 识别结果</text>
+      <view class="recognize-result">
+        <view class="result-header">
+          <text class="result-label">识别内容</text>
+          <view class="result-actions">
+            <text class="result-edit" bindtap="editRecognized">编辑</text>
+            <text class="result-retry" bindtap="reRecognize">重新识别</text>
+          </view>
+        </view>
+        <textarea class="result-textarea" 
+                  value="{{recognizedText}}" 
+                  placeholder="AI 识别的题目内容，可手动修改"
+                  maxlength="-1"
+                  bindinput="onRecognizedChange" />
+      </view>
+    </view>
+
+    <!-- 截止时间 -->
+    <view class="form-section">
+      <text class="section-title">截止时间</text>
+      <view class="datetime-picker" bindtap="chooseDateTime">
+        <text class="datetime-text">{{deadline || '选择截止时间'}}</text>
+        <text class="datetime-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-section">
+      <text class="section-title">备注（可选）</text>
+      <textarea class="note-input" 
+                value="{{note}}" 
+                placeholder="添加备注，如：第几页、第几题等"
+                maxlength="200"
+                bindinput="onNoteChange" />
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="action-bar">
+    <button class="submit-btn" bindtap="submitHomework">
+      <text>创建作业</text>
+    </button>
+  </view>
+</view>

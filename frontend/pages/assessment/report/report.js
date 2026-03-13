@@ -74,13 +74,13 @@ Page({
       ]
     }
     
-    // 雷达图数据
+    // 雷达图数据 - 微信风格
     const radarData = [
-      { name: '计算能力', value: 90, color: '#667eea' },
-      { name: '逻辑思维', value: 85, color: '#764ba2' },
-      { name: '空间想象', value: 70, color: '#f39c12' },
-      { name: '概念理解', value: 80, color: '#2ecc71' },
-      { name: '细心程度', value: 75, color: '#e74c3c' }
+      { name: '计算能力', value: 90, color: '#07C160' },
+      { name: '逻辑思维', value: 85, color: '#07C160' },
+      { name: '空间想象', value: 70, color: '#FF9F00' },
+      { name: '概念理解', value: 80, color: '#07C160' },
+      { name: '细心程度', value: 75, color: '#FF9F00' }
     ]
     
     this.setData({
@@ -147,9 +147,9 @@ Page({
           ctx.stroke()
         }
         
-        // 绘制数据区域
-        ctx.fillStyle = 'rgba(102, 126, 234, 0.3)'
-        ctx.strokeStyle = '#667eea'
+        // 绘制数据区域 - 微信风格
+        ctx.fillStyle = 'rgba(7, 193, 96, 0.2)'
+        ctx.strokeStyle = '#07C160'
         ctx.lineWidth = 2
         ctx.beginPath()
         for (let i = 0; i <= data.length; i++) {
@@ -170,7 +170,7 @@ Page({
         ctx.stroke()
         
         // 绘制数据点
-        ctx.fillStyle = '#667eea'
+        ctx.fillStyle = '#07C160'
         for (let i = 0; i < data.length; i++) {
           const angle = angleStep * i - Math.PI / 2
           const value = data[i].value

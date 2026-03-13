@@ -1,0 +1,187 @@
+/* pages/mistakes/review/review.wxss - 错题复习页 */
+
+.page {
+  padding: var(--space-3);
+  padding-bottom: 200rpx;
+}
+
+/* 头部 */
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.review-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.review-progress {
+  font-size: 26rpx;
+  color: var(--text-3);
+}
+
+/* 进度条 */
+.progress-bar {
+  height: 8rpx;
+  background: var(--border);
+  border-radius: 4rpx;
+  margin-bottom: var(--space-3);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+/* 题目卡片 */
+.question-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.question-header {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.subject-badge {
+  padding: 6rpx 12rpx;
+  background: rgba(7, 193, 96, 0.1);
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.error-type-badge {
+  padding: 6rpx 12rpx;
+  background: rgba(255, 159, 0, 0.1);
+  color: #FF9F00;
+  border-radius: var(--radius-sm);
+  font-size: 22rpx;
+  font-weight: 500;
+}
+
+.question-content {
+  margin-bottom: var(--space-3);
+}
+
+.question-label {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.question-text {
+  display: block;
+  font-size: 30rpx;
+  line-height: 1.8;
+  color: var(--text-1);
+  background: var(--bg-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+/* 答案区域 */
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.answer-item {
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border-left: 4rpx solid;
+}
+
+.answer-item.wrong {
+  background: rgba(250, 81, 81, 0.08);
+  border-left-color: #FA5151;
+}
+
+.answer-item.correct {
+  background: rgba(7, 193, 96, 0.08);
+  border-left-color: var(--primary);
+}
+
+.answer-label {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-2);
+  margin-bottom: 8rpx;
+  font-weight: 500;
+}
+
+.answer-text {
+  display: block;
+  font-size: 28rpx;
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+/* 知识点 */
+.knowledge-section {
+  padding-top: var(--space-2);
+  border-top: 1rpx solid var(--border-light);
+}
+
+.knowledge-label {
+  display: block;
+  font-size: 24rpx;
+  color: var(--text-3);
+  margin-bottom: var(--space-2);
+}
+
+.knowledge-text {
+  display: block;
+  font-size: 28rpx;
+  color: var(--text-1);
+  background: var(--bg-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+/* 操作按钮 */
+.review-actions {
+  display: flex;
+  gap: var(--space-2);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-3);
+  background: #FFFFFF;
+  box-shadow: 0 -2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.review-actions button {
+  flex: 1;
+  height: 88rpx;
+  border-radius: var(--radius-lg);
+  font-size: 30rpx;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-incorrect {
+  background: var(--bg-3);
+  color: var(--text-1);
+}
+
+.btn-correct {
+  background: var(--primary);
+  color: #FFFFFF;
+}

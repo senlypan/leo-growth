@@ -1,105 +1,108 @@
-<!--pages/homework/check/check.wxml - 检查作业-->
-<view class="container">
-  <!-- 作业信息 -->
-  <view class="homework-card card">
-    <view class="homework-header">
-      <view class="subject-badge {{homework.subject}}">
-        <text>{{subjectNames[homework.subject]}}</text>
-      </view>
-      <view class="status-badge {{homework.status}}">
-        <text>{{statusNames[homework.status]}}</text>
-      </view>
-    </view>
-    <view class="homework-content">
-      <text class="content-label">📝 作业内容</text>
-      <text class="content-text">{{homework.content}}</text>
-    </view>
+<!--pages/homework/check/check.wxml - 家长批改页-->
+<view class="page">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="page-title">批改作业</text>
+    <text class="page-subtitle">AI 辅助，快速批改</text>
   </view>
 
-  <!-- 学生提交 -->
-  <view class="submission-card card">
-    <view class="card-title">📸 学生提交</view>
-    
-    <view class="submission-info">
-      <text class="info-label">提交时间：</text>
-      <text class="info-value">{{latestSubmission.submitTime}}</text>
-    </view>
-
-    <!-- 图片预览 -->
-    <view class="image-gallery" wx:if="{{latestSubmission.images && latestSubmission.images.length > 0}}">
-      <image class="gallery-image" 
-             wx:for="{{latestSubmission.images}}" 
-             wx:key="*this"
-             wx:for-item="image"
-             src="{{image}}" 
-             mode="widthFix"
-             bindtap="previewImage"
-             data-index="{{index}}"/>
-    </view>
-
-    <!-- 文字说明 -->
-    <view class="student-note" wx:if="{{latestSubmission.content}}">
-      <view class="note-title">📝 学生说明</view>
-      <view class="note-content">{{latestSubmission.content}}</view>
-    </view>
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{isLoading}}">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">AI 批改中...</text>
   </view>
 
-  <!-- 检查结果 -->
-  <view class="check-card card">
-    <view class="card-title">👨‍🏫 检查结果</view>
-    
-    <!-- 正确性选择 -->
-    <view class="check-section">
-      <view class="section-label">作业完成情况</view>
-      <view class="radio-group">
-        <view class="radio-item {{checkResult.isCorrect === true ? 'active correct' : ''}}" 
-              bindtap="selectCorrect" data-value="true">
-          <view class="radio-circle">
-            <view class="radio-dot" wx:if="{{checkResult.isCorrect === true}}"></view>
-          </view>
-          <text class="radio-label">✅ 正确</text>
+  <!-- 批改内容 -->
+  <view class="check-content" wx:else>
+    <!-- 作业信息 -->
+    <view class="homework-card">
+      <view class="homework-header">
+        <view class="subject-badge {{homework.subject}}">{{homework.subjectName}}</view>
+        <text class="homework-time">{{homework.submitTime}}</text>
+      </view>
+      <view class="homework-content">
+        <text class="content-label">作业内容</text>
+        <text class="content-text">{{homework.content}}</text>
+      </view>
+    </view>
+
+    <!-- 提交的照片 -->
+    <view class="photos-section" wx:if="{{homework.images && homework.images.length > 0}}">
+      <text class="section-label">提交的照片</text>
+      <view class="photos-grid">
+        <image class="photo-item" wx:for="{{homework.images}}" wx:key="*this" 
+               src="{{item}}" mode="aspectFill" 
+               bindtap="previewImage" data-src="{{item}}" />
+      </view>
+    </view>
+
+    <!-- AI 批改结果 -->
+    <view class="ai-result">
+      <view class="result-header">
+        <text class="result-label">🤖 AI 批改建议</text>
+        <view class="ai-badge">AI 辅助</view>
+      </view>
+      
+      <view class="result-body">
+        <view class="result-row">
+          <text class="result-key">正确率</text>
+          <text class="result-value {{aiResult.scoreClass}}">{{aiResult.accuracy}}%</text>
         </view>
-        <view class="radio-item {{checkResult.isCorrect === false ? 'active incorrect' : ''}}" 
-              bindtap="selectCorrect" data-value="false">
-          <view class="radio-circle">
-            <view class="radio-dot" wx:if="{{checkResult.isCorrect === false}}"></view>
-          </view>
-          <text class="radio-label">❌ 需订正</text>
+        <view class="result-row">
+          <text class="result-key">建议评分</text>
+          <text class="result-value">{{aiResult.suggestedScore}} 分</text>
+        </view>
+        <view class="result-row">
+          <text class="result-key">问题诊断</text>
+          <text class="result-text">{{aiResult.diagnosis}}</text>
         </view>
       </view>
     </view>
 
-    <!-- 评分 -->
-    <view class="check-section" wx:if="{{checkResult.isCorrect === true}}">
-      <view class="section-label">⭐ 评分（可选）</view>
-      <view class="score-selector">
-        <view class="score-item {{checkResult.score >= i ? 'active' : ''}}" 
-              wx:for="{{[1,2,3,4,5]}}" 
-              wx:key="*this"
-              wx:for-item="i"
-              bindtap="selectScore" 
-              data-score="{{i}}">
-          <text>⭐</text>
+    <!-- 家长评分 -->
+    <view class="parent-check">
+      <text class="section-label">家长批改</text>
+      
+      <!-- 评分 -->
+      <view class="score-input">
+        <text class="score-label">评分</text>
+        <view class="score-selector">
+          <input class="score-input-field" type="number" 
+                 value="{{score}}" placeholder="0-100"
+                 bindinput="onScoreChange" />
+          <text class="score-unit">分</text>
         </view>
       </view>
-    </view>
 
-    <!-- 家长反馈 -->
-    <view class="check-section">
-      <view class="section-label">💬 家长反馈（可选）</view>
-      <textarea class="feedback-input"
-                placeholder="写下对孩子的鼓励或建议..."
-                value="{{checkResult.feedback}}"
-                bindinput="onFeedbackInput"
-                maxlength="200"
-                auto-height/>
+      <!-- 批改结果 -->
+      <view class="check-result-selector">
+        <text class="score-label">批改结果</text>
+        <view class="result-options">
+          <view class="result-option {{checkResult === 'correct' ? 'active' : ''}}" 
+                bindtap="selectCheckResult" data-result="correct">
+            <text>✅ 正确</text>
+          </view>
+          <view class="result-option {{checkResult === 'wrong' ? 'active' : ''}}" 
+                bindtap="selectCheckResult" data-result="wrong">
+            <text>❌ 有错误</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 评语 -->
+      <view class="comment-input">
+        <text class="score-label">评语（可选）</text>
+        <textarea class="comment-textarea" 
+                  value="{{comment}}" 
+                  placeholder="写点鼓励的话吧～"
+                  maxlength="200"
+                  bindinput="onCommentChange" />
+      </view>
     </view>
   </view>
 
   <!-- 提交按钮 -->
-  <view class="action-bar">
-    <button class="action-btn" bindtap="submitCheck" disabled="{{!canSubmit}}">
-      <text>✅ 确认检查</text>
-    </button>
+  <view class="action-bar" wx:if="{{!isLoading}}">
+    <button class="btn-submit" bindtap="submitCheck">提交批改</button>
   </view>
 </view>

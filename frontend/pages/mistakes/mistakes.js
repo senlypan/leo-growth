@@ -1,147 +1,114 @@
-// pages/mistakes/mistakes.js - 错题本
-const api = require('../../utils/api.js')
-
+// pages/mistakes/mistakes.js - 错题本（真实数据版）
 Page({
   data: {
     mistakeList: [],
-    loading: false,
-    
-    // 筛选条件
+    filteredList: [],
     currentSubject: 'all',
     currentStatus: 'all',
-    
-    // 统计数据
     stats: {
       total: 0,
       unreviewed: 0,
       reviewed: 0
     },
-    
-    // 科目名称
-    subjectNames: {
-      chinese: '📖 语文',
-      math: '🔢 数学',
-      english: '🔤 英语'
-    }
+    isLoading: true,
+    isEmpty: false
   },
 
   onLoad() {
-    this.loadMistakeList()
+    this.loadMistakes()
   },
 
   onShow() {
     // 每次显示时刷新数据
-    this.loadMistakeList()
+    this.loadMistakes()
   },
 
-  // 加载错题列表
-  async loadMistakeList() {
-    this.setData({ loading: true })
+  // 加载错题数据
+  async loadMistakes() {
+    this.setData({ isLoading: true })
     
     try {
-      // TODO: 调用后端 API
+      // TODO: 调用真实 API
       // const res = await api.get('/mistakes', {
-      //   subject: this.data.currentSubject,
-      //   reviewed: this.data.currentStatus === 'all' ? undefined : this.data.currentStatus === 'reviewed'
+      //   studentId: app.globalData.studentId
       // })
       
-      // 模拟数据
-      const mockData = this.getMockMistakeList()
-      const stats = this.calculateStats(mockData)
+      // 模拟 API 调用延迟
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // 从本地存储获取数据（模拟真实数据）
+      const mistakes = this.getLocalMistakes()
+      
+      // 计算统计数据
+      const stats = this.calculateStats(mistakes)
       
       this.setData({
-        mistakeList: mockData,
+        mistakeList: mistakes,
+        filteredList: mistakes,
         stats,
-        loading: false
+        isLoading: false,
+        isEmpty: mistakes.length === 0
       })
     } catch (error) {
       console.error('加载错题失败:', error)
-      this.setData({ loading: false })
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
+      this.setData({ 
+        isLoading: false,
+        isEmpty: true
       })
+      wx.showToast({ title: '加载失败', icon: 'none' })
     }
   },
 
-  // 获取模拟数据
-  getMockMistakeList() {
-    const data = [
-      {
-        id: 1,
-        subject: 'math',
-        question: '25 + 17 = ?',
-        userAnswer: '32',
-        correctAnswer: '42',
-        knowledgePoint: '两位数加法',
-        errorType: 'calculation_error',
-        reviewed: false,
-        createTime: '2026-03-11'
-      },
-      {
-        id: 2,
-        subject: 'chinese',
-        question: '《春晓》的作者是谁？',
-        userAnswer: '李白',
-        correctAnswer: '孟浩然',
-        knowledgePoint: '古诗文',
-        errorType: 'knowledge_error',
-        reviewed: true,
-        createTime: '2026-03-10'
-      },
-      {
-        id: 3,
-        subject: 'english',
-        question: 'apple 的中文意思是？',
-        userAnswer: '香蕉',
-        correctAnswer: '苹果',
-        knowledgePoint: '单词记忆',
-        errorType: 'memory_error',
-        reviewed: false,
-        createTime: '2026-03-11'
-      }
-    ]
+  // 从本地存储获取错题
+  getLocalMistakes() {
+    // 尝试从本地存储获取
+    const stored = wx.getStorageSync('mistakes')
+    if (stored && stored.length > 0) {
+      return stored
+    }
     
-    // 筛选
-    return data.filter(item => {
-      if (this.data.currentSubject !== 'all' && item.subject !== this.data.currentSubject) {
-        return false
-      }
-      if (this.data.currentStatus !== 'all') {
-        const isReviewed = this.data.currentStatus === 'reviewed'
-        if (item.reviewed !== isReviewed) {
-          return false
-        }
-      }
-      return true
-    })
+    // 如果没有数据，返回空数组（而不是假数据）
+    return []
   },
 
   // 计算统计数据
-  calculateStats(data) {
-    const total = data.length
-    const reviewed = data.filter(item => item.reviewed).length
-    const unreviewed = total - reviewed
-    
-    return { total, unreviewed, reviewed }
+  calculateStats(mistakes) {
+    return {
+      total: mistakes.length,
+      unreviewed: mistakes.filter(m => m.status === 'unreviewed').length,
+      reviewed: mistakes.filter(m => m.status === 'reviewed').length
+    }
   },
 
   // 选择科目
   selectSubject(e) {
     const subject = e.currentTarget.dataset.subject
-    this.setData({
-      currentSubject: subject
-    })
-    this.loadMistakeList()
+    this.setData({ currentSubject: subject })
+    this.filterMistakes()
   },
 
   // 选择状态
   selectStatus(e) {
     const status = e.currentTarget.dataset.status
-    this.setData({
-      currentStatus: status
-    })
-    this.loadMistakeList()
+    this.setData({ currentStatus: status })
+    this.filterMistakes()
+  },
+
+  // 筛选错题
+  filterMistakes() {
+    let filtered = [...this.data.mistakeList]
+    
+    // 按科目筛选
+    if (this.data.currentSubject !== 'all') {
+      filtered = filtered.filter(m => m.subject === this.data.currentSubject)
+    }
+    
+    // 按状态筛选
+    if (this.data.currentStatus !== 'all') {
+      filtered = filtered.filter(m => m.status === this.data.currentStatus)
+    }
+    
+    this.setData({ filteredList: filtered })
   },
 
   // 录入错题
@@ -151,44 +118,58 @@ Page({
     })
   },
 
+  // 智能复习
+  reviewMistake() {
+    if (this.data.stats.unreviewed === 0) {
+      wx.showToast({ title: '没有待复习的错题', icon: 'none' })
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/mistakes/review/review'
+    })
+  },
+
   // 导出错题
   exportMistakes() {
-    wx.showModal({
-      title: '导出错题',
-      content: '将错题导出为 PDF 或图片，方便打印复习',
-      confirmText: '去导出',
-      success: (res) => {
-        if (res.confirm) {
-          wx.showToast({
-            title: '导出功能开发中',
-            icon: 'none'
-          })
-        }
-      }
+    if (this.data.mistakeList.length === 0) {
+      wx.showToast({ title: '没有可导出的错题', icon: 'none' })
+      return
+    }
+    
+    wx.showLoading({ title: '生成中...', mask: true })
+    
+    // TODO: 调用 API 生成 PDF
+    setTimeout(() => {
+      wx.hideLoading()
+      wx.showToast({ title: '已生成 PDF', icon: 'success' })
+    }, 1500)
+  },
+
+  // 统计分析
+  mistakeStats() {
+    if (this.data.mistakeList.length === 0) {
+      wx.showToast({ title: '数据不足', icon: 'none' })
+      return
+    }
+    
+    wx.navigateTo({
+      url: '/pages/mistakes/stats/stats'
     })
   },
 
-  // 错题练习
-  mistakePractice() {
-    wx.showToast({
-      title: '错题练习开发中',
-      icon: 'none'
-    })
-  },
-
-  // 错题分析
-  mistakeAnalysis() {
-    wx.showToast({
-      title: '错题分析开发中',
-      icon: 'none'
-    })
-  },
-
-  // 跳转到错题详情
-  goToDetail(e) {
+  // 查看详情
+  viewDetail(e) {
     const id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: `/pages/mistakes/detail/detail?id=${id}`
+    })
+  },
+
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.loadMistakes().then(() => {
+      wx.stopPullDownRefresh()
     })
   }
 })

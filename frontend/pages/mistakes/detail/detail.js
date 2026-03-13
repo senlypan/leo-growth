@@ -105,7 +105,7 @@ Page({
     wx.showModal({
       title: '确认删除',
       content: '确定要删除这道错题吗？删除后无法恢复。',
-      confirmColor: '#e74c3c',
+      confirmColor: '#FA5151',
       success: async (res) => {
         if (res.confirm) {
           wx.showLoading({

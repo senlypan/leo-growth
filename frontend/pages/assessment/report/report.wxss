@@ -1,24 +1,26 @@
-/* pages/assessment/report/report.wxss - 评估报告 */
+/* pages/assessment/report/report.wxss - 评估报告（微信风格） */
+
 .container {
-  padding: 24rpx;
-  background: #f5f7fa;
+  padding: 16rpx;
+  background: #F5F5F5;
   min-height: 100vh;
   padding-bottom: 200rpx;
 }
 
 .card {
-  background: #fff;
-  border-radius: 16rpx;
-  padding: 32rpx;
-  margin-bottom: 24rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
 }
 
 .card-title {
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 600;
-  color: #333;
-  margin-bottom: 24rpx;
+  color: #111111;
+  margin-bottom: 20rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 1rpx solid #EEEEEE;
 }
 
 /* 报告头部 */
@@ -31,28 +33,22 @@
 .header-info {
   display: flex;
   align-items: center;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .subject-icon {
-  font-size: 80rpx;
-}
-
-.header-text {
-  display: flex;
-  flex-direction: column;
-  gap: 8rpx;
+  font-size: 64rpx;
 }
 
 .subject-name {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #111111;
 }
 
 .report-date {
-  font-size: 24rpx;
-  color: #999;
+  font-size: 22rpx;
+  color: #999999;
 }
 
 .score-section {
@@ -61,192 +57,144 @@
 }
 
 .score-circle {
-  width: 160rpx;
-  height: 160rpx;
+  width: 140rpx;
+  height: 140rpx;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #07C160;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.4);
 }
 
 .score-value {
-  font-size: 56rpx;
-  font-weight: bold;
-  color: #fff;
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #FFFFFF;
 }
 
 .score-label {
-  font-size: 24rpx;
+  font-size: 22rpx;
   color: rgba(255, 255, 255, 0.9);
-}
-
-/* 雷达图 */
-.radar-chart {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 24rpx;
-}
-
-.radar-canvas {
-  width: 500rpx;
-  height: 500rpx;
-}
-
-.radar-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-}
-
-.legend-dot {
-  width: 24rpx;
-  height: 24rpx;
-  border-radius: 50%;
-}
-
-.legend-name {
-  flex: 1;
-  font-size: 28rpx;
-  color: #333;
-}
-
-.legend-value {
-  font-size: 28rpx;
-  font-weight: bold;
-  color: #667eea;
 }
 
 /* 优势分析 */
 .strength-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .strength-item {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 
 .strength-icon {
-  font-size: 40rpx;
+  font-size: 36rpx;
 }
 
 .strength-content {
-  width: 200rpx;
+  width: 180rpx;
   display: flex;
   flex-direction: column;
   gap: 4rpx;
 }
 
 .strength-name {
-  font-size: 28rpx;
-  color: #333;
+  font-size: 26rpx;
+  color: #111111;
   font-weight: 600;
 }
 
 .strength-score {
-  font-size: 24rpx;
-  color: #666;
+  font-size: 22rpx;
+  color: #666666;
 }
 
 .strength-bar {
   flex: 1;
-  height: 16rpx;
-  background: #f0f0f0;
-  border-radius: 8rpx;
+  height: 8rpx;
+  background: #EEEEEE;
+  border-radius: 4rpx;
   overflow: hidden;
 }
 
 .strength-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8rpx;
-  transition: width 0.3s ease;
+  background: #07C160;
 }
 
 /* 薄弱点 */
 .weakness-list {
   display: flex;
   flex-direction: column;
-  gap: 20rpx;
+  gap: 16rpx;
 }
 
 .weakness-item {
-  display: flex;
-  flex-direction: column;
-  gap: 12rpx;
-  padding: 20rpx;
-  background: #fff8e8;
-  border-radius: 12rpx;
-  border-left: 4rpx solid #f39c12;
+  padding: 16rpx;
+  background: rgba(255, 159, 0, 0.08);
+  border-radius: 8rpx;
+  border-left: 4rpx solid #FF9F00;
 }
 
 .weakness-content {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 
 .weakness-icon {
-  font-size: 40rpx;
+  font-size: 36rpx;
 }
 
 .weakness-name {
   flex: 1;
-  font-size: 28rpx;
-  color: #333;
+  font-size: 26rpx;
+  color: #111111;
   font-weight: 600;
 }
 
 .weakness-score {
-  font-size: 24rpx;
-  color: #f39c12;
-  font-weight: bold;
+  font-size: 22rpx;
+  color: #FF9F00;
+  font-weight: 600;
 }
 
 .weakness-suggestion {
-  font-size: 26rpx;
-  color: #666;
+  font-size: 24rpx;
+  color: #666666;
   line-height: 1.6;
-  padding-left: 56rpx;
+  padding-left: 48rpx;
 }
 
 /* 学习建议 */
 .suggestion-list {
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 
 .suggestion-item {
   display: flex;
   align-items: flex-start;
-  gap: 16rpx;
-  padding: 20rpx;
-  background: #e8f4ff;
-  border-radius: 12rpx;
-  border-left: 4rpx solid #3498db;
+  gap: 12rpx;
+  padding: 16rpx;
+  background: rgba(16, 174, 255, 0.08);
+  border-radius: 8rpx;
+  border-left: 4rpx solid #10AEFF;
 }
 
 .suggestion-icon {
-  font-size: 40rpx;
+  font-size: 36rpx;
 }
 
 .suggestion-text {
   flex: 1;
-  font-size: 28rpx;
-  color: #333;
+  font-size: 26rpx;
+  color: #111111;
   line-height: 1.6;
 }
 
@@ -256,32 +204,30 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 24rpx;
-  background: #fff;
-  box-shadow: 0 -4rpx 12rpx rgba(0, 0, 0, 0.05);
+  padding: 16rpx;
+  background: #FFFFFF;
   display: flex;
-  gap: 16rpx;
-  z-index: 100;
+  gap: 12rpx;
 }
 
 .action-btn {
   flex: 1;
-  height: 96rpx;
-  border-radius: 16rpx;
-  font-size: 30rpx;
+  height: 88rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.action-btn:active {
+  opacity: 0.8;
 }
 
 .retake-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
-  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+  background: #07C160;
+  color: #FFFFFF;
 }
 
 .back-btn {
-  background: #f5f7fa;
-  color: #666;
+  background: #F5F5F5;
+  color: #666666;
 }

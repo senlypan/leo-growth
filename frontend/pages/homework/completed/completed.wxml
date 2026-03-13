@@ -1,0 +1,98 @@
+<!--pages/homework/completed/completed.wxml - 作业完成页-->
+<view class="page">
+  <!-- 完成状态 -->
+  <view class="completed-header">
+    <view class="completed-icon">✅</view>
+    <text class="completed-title">作业已完成！</text>
+    <text class="completed-subtitle">继续加油，保持好习惯～</text>
+  </view>
+
+  <!-- 批改结果 -->
+  <view class="result-card">
+    <view class="result-header">
+      <text class="result-label">批改结果</text>
+      <view class="result-score {{resultClass}}">
+        <text>{{score}}</text>
+        <text class="score-unit">分</text>
+      </view>
+    </view>
+    
+    <view class="result-content">
+      <view class="result-item">
+        <text class="result-item-label">完成情况</text>
+        <text class="result-item-value">{{homework.statusText}}</text>
+      </view>
+      <view class="result-item">
+        <text class="result-item-label">批改时间</text>
+        <text class="result-item-value">{{homework.checkTime}}</text>
+      </view>
+    </view>
+
+    <view class="comment-section" wx:if="{{homework.comment}}">
+      <text class="comment-label">家长评语</text>
+      <text class="comment-text">{{homework.comment}}</text>
+    </view>
+  </view>
+
+  <!-- 获得积分 -->
+  <view class="points-card">
+    <view class="points-header">
+      <text class="points-icon">🎁</text>
+      <text class="points-title">获得积分奖励</text>
+    </view>
+    <view class="points-body">
+      <view class="points-item">
+        <text class="points-item-label">完成作业</text>
+        <text class="points-item-value">+10</text>
+      </view>
+      <view class="points-item" wx:if="{{isFullMarks}}">
+        <text class="points-item-label">满分奖励</text>
+        <text class="points-item-value">+5</text>
+      </view>
+      <view class="points-total">
+        <text class="points-total-label">共获得</text>
+        <text class="points-total-value">+{{totalPoints}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 下一步操作 -->
+  <view class="actions-section">
+    <text class="actions-title">接下来做什么？</text>
+    
+    <view class="actions-list">
+      <view class="action-item" bindtap="addToMistakes" wx:if="{{hasWrongQuestions}}">
+        <view class="action-icon">📝</view>
+        <view class="action-content">
+          <text class="action-title">加入错题本</text>
+          <text class="action-desc">记录错题，避免再犯</text>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+
+      <view class="action-item" bindtap="startReview">
+        <view class="action-icon">🔁</view>
+        <view class="action-content">
+          <text class="action-title">复习错题</text>
+          <text class="action-desc">巩固知识点</text>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+
+      <view class="action-item" bindtap="viewReport">
+        <view class="action-icon">📊</view>
+        <view class="action-content">
+          <text class="action-title">查看学习报告</text>
+          <text class="action-desc">了解学习情况</text>
+        </view>
+        <view class="action-arrow">›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-actions">
+    <button class="btn-secondary" bindtap="goHome">返回首页</button>
+    <button class="btn-primary" bindtap="continueHomework">继续作业</button>
+  </view>
+</view>

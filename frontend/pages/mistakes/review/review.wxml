@@ -1,0 +1,47 @@
+<!--pages/mistakes/review/review.wxml - 错题复习页-->
+<view class="page">
+  <!-- 进度条 -->
+  <view class="review-header">
+    <text class="review-title">智能复习</text>
+    <text class="review-progress">{{currentIndex + 1}} / {{total}}</text>
+  </view>
+
+  <view class="progress-bar">
+    <view class="progress-fill" style="width: {{progress}}%"></view>
+  </view>
+
+  <!-- 题目卡片 -->
+  <view class="question-card">
+    <view class="question-header">
+      <view class="subject-badge {{currentMistake.subject}}">{{currentMistake.subjectName}}</view>
+      <view class="error-type-badge">{{currentMistake.errorTypeName}}</view>
+    </view>
+
+    <view class="question-content">
+      <text class="question-label">题目</text>
+      <text class="question-text">{{currentMistake.question}}</text>
+    </view>
+
+    <view class="answer-section">
+      <view class="answer-item wrong">
+        <text class="answer-label">你的答案</text>
+        <text class="answer-text">{{currentMistake.userAnswer}}</text>
+      </view>
+      <view class="answer-item correct">
+        <text class="answer-label">正确答案</text>
+        <text class="answer-text">{{currentMistake.correctAnswer}}</text>
+      </view>
+    </view>
+
+    <view class="knowledge-section" wx:if="{{currentMistake.knowledgePoint}}">
+      <text class="knowledge-label">📌 知识点</text>
+      <text class="knowledge-text">{{currentMistake.knowledgePoint}}</text>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="review-actions">
+    <button class="btn-incorrect" bindtap="markIncorrect">还是不会</button>
+    <button class="btn-correct" bindtap="markCorrect">已经掌握</button>
+  </view>
+</view>

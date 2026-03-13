@@ -1,403 +1,321 @@
 /* ===================================================
-   Leo Growth - 全局样式（乔布斯设计版）
-   设计理念：极简、优雅、直观、适合孩子
+   Leo Growth - 全局样式（高级极简版）
+   设计理念：少即是多 · 克制 · 精致 · 留白
    =================================================== */
 
-:root {
-  /* 主色调 - 温暖活泼 */
-  --primary-color: #667eea;
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* ===================================================
+   设计令牌
+   =================================================== */
+page {
+  /* 主色 - 单一克制 */
+  --primary: #07C160;
+  --primary-light: #08B85F;
+  --primary-dark: #06A555;
   
-  /* 辅助色 - 柔和明亮 */
-  --success-color: #2ecc71;
-  --warning-color: #f39c12;
-  --danger-color: #e74c3c;
-  --info-color: #3498db;
+  /* 中性色 - 精致层次 */
+  --text-1: #1A1A1A;
+  --text-2: #666666;
+  --text-3: #999999;
+  --text-4: #CCCCCC;
   
-  /* 中性色 - 柔和不刺眼 */
-  --text-dark: #2c3e50;
-  --text-medium: #7f8c8d;
-  --text-light: #95a5a6;
+  /* 背景色 - 干净纯粹 */
+  --bg-1: #F7F8FA;
+  --bg-2: #FFFFFF;
+  --bg-3: #F0F2F5;
   
-  /* 背景色 - 温暖舒适 */
-  --bg-primary: #f8f9fa;
-  --bg-secondary: #ffffff;
-  --bg-accent: #e8f4f8;
+  /* 边框 - 精致细腻 */
+  --border: #E8EAED;
+  --border-light: #F0F2F5;
   
-  /* 阴影 - 柔和有层次 */
+  /* 圆角 - 适度精致 */
+  --radius-sm: 8rpx;
+  --radius-md: 12rpx;
+  --radius-lg: 16rpx;
+  
+  /* 间距 - 严格 8 倍数 */
+  --space-1: 8rpx;
+  --space-2: 16rpx;
+  --space-3: 24rpx;
+  --space-4: 32rpx;
+  --space-5: 48rpx;
+  
+  /* 阴影 - 极其克制 */
   --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 40rpx rgba(102, 126, 234, 0.3);
-  
-  /* 圆角 - 柔和友好 */
-  --radius-sm: 12rpx;
-  --radius-md: 20rpx;
-  --radius-lg: 28rpx;
-  --radius-xl: 36rpx;
-  
-  /* 间距 - 呼吸感 */
-  --spacing-xs: 8rpx;
-  --spacing-sm: 16rpx;
-  --spacing-md: 24rpx;
-  --spacing-lg: 32rpx;
-  --spacing-xl: 48rpx;
+  --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
 /* ===================================================
    基础样式
    =================================================== */
 page {
-  background: var(--bg-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  color: var(--text-dark);
+  background-color: var(--bg-1);
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
   font-size: 28rpx;
-  line-height: 1.6;
+  line-height: 1.5;
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===================================================
-   容器
+   页面容器 - 大量留白
    =================================================== */
-.container {
-  padding: var(--spacing-md);
+.page {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f8f9fa 0%, #e8f4f8 100%);
+  background-color: var(--bg-1);
+  padding: var(--space-3);
 }
 
 /* ===================================================
-   卡片设计 - 乔布斯风格
+   卡片 - 极简克制
    =================================================== */
 .card {
-  background: var(--bg-secondary);
+  background-color: var(--bg-2);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-  box-shadow: var(--shadow-md);
-  border: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card:active {
-  transform: scale(0.98);
+  padding: var(--space-4);
+  margin-bottom: var(--space-2);
   box-shadow: var(--shadow-sm);
 }
 
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
+  border-bottom: 1rpx solid var(--border-light);
+}
+
 /* ===================================================
-   按钮设计
+   按钮 - 扁平精致
    =================================================== */
 .btn {
-  padding: var(--spacing-md) var(--spacing-lg);
-  border-radius: var(--radius-xl);
-  font-size: 30rpx;
-  font-weight: 600;
-  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
 }
 
 .btn:active {
-  transform: scale(0.95);
+  opacity: 0.7;
+  transform: scale(0.98);
 }
 
 .btn-primary {
-  background: var(--primary-gradient);
-  color: #fff;
-  box-shadow: var(--shadow-glow);
-}
-
-.btn-success {
-  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
-  color: #fff;
-  box-shadow: 0 4rpx 16rpx rgba(46, 204, 113, 0.3);
-}
-
-.btn-warning {
-  background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-  color: #fff;
-  box-shadow: 0 4rpx 16rpx rgba(243, 156, 18, 0.3);
+  background-color: var(--primary);
+  color: #FFFFFF;
 }
 
 .btn-secondary {
-  background: var(--bg-accent);
-  color: var(--primary-color);
-  border: 2rpx solid var(--primary-color);
+  background-color: var(--bg-3);
+  color: var(--text-1);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--primary);
 }
 
 /* ===================================================
-   标题设计
+   标题层级 - 清晰精致
    =================================================== */
+.page-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: var(--text-1);
+  letter-spacing: -0.5rpx;
+  margin-bottom: var(--space-1);
+}
+
+.page-subtitle {
+  font-size: 26rpx;
+  color: var(--text-3);
+  font-weight: 400;
+}
+
 .section-title {
   font-size: 32rpx;
-  font-weight: 700;
-  color: var(--text-dark);
-  margin: var(--spacing-lg) 0 var(--spacing-md);
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.section-title::before {
-  content: '';
-  width: 8rpx;
-  height: 32rpx;
-  background: var(--primary-gradient);
-  border-radius: 4rpx;
+  font-weight: 600;
+  color: var(--text-1);
+  margin: var(--space-5) 0 var(--space-3);
+  letter-spacing: -0.3rpx;
 }
 
 /* ===================================================
-   空状态设计
+   文字层级
+   =================================================== */
+.text-1 { color: var(--text-1); }
+.text-2 { color: var(--text-2); }
+.text-3 { color: var(--text-3); }
+.text-primary { color: var(--primary); }
+
+.text-bold { font-weight: 600; }
+.text-center { text-align: center; }
+.text-sm { font-size: 24rpx; }
+
+/* ===================================================
+   徽章 - 极简
+   =================================================== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 12rpx;
+  border-radius: var(--radius-sm);
+  font-size: 22rpx;
+  font-weight: 500;
+  background-color: rgba(7, 193, 96, 0.08);
+  color: var(--primary);
+}
+
+/* ===================================================
+   列表 - 微信风格
+   =================================================== */
+.list {
+  background-color: var(--bg-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3);
+  border-bottom: 1rpx solid var(--border-light);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item:active {
+  background-color: var(--bg-3);
+}
+
+/* ===================================================
+   分割线
+   =================================================== */
+.divider {
+  height: 1rpx;
+  background-color: var(--border);
+  margin: var(--space-2) 0;
+}
+
+/* ===================================================
+   空状态 - 极简留白
    =================================================== */
 .empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: var(--spacing-xl);
+  padding: var(--space-6) var(--space-4);
   text-align: center;
 }
 
-.empty-icon {
-  font-size: 100rpx;
-  margin-bottom: var(--spacing-md);
-  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.1));
+.empty-title {
+  font-size: 30rpx;
+  color: var(--text-2);
+  margin-bottom: var(--space-1);
+  font-weight: 500;
 }
 
-.empty-text {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: var(--text-dark);
-  margin-bottom: var(--spacing-xs);
-}
-
-.empty-hint {
+.empty-desc {
   font-size: 26rpx;
-  color: var(--text-light);
+  color: var(--text-3);
+  line-height: 1.6;
 }
 
 /* ===================================================
-   加载状态
+   布局工具
    =================================================== */
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-xl);
-  color: var(--text-light);
-  font-size: 28rpx;
-}
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-column { display: flex; flex-direction: column; }
+.flex-1 { flex: 1; }
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
 
-.loading::before {
-  content: '⏳';
-  margin-right: var(--spacing-sm);
-  animation: bounce 1s infinite;
-}
+.grid { display: grid; gap: var(--space-2); }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8rpx); }
+/* ===================================================
+   间距工具
+   =================================================== */
+.mt-1 { margin-top: var(--space-1); }
+.mt-2 { margin-top: var(--space-2); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-4 { margin-top: var(--space-4); }
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+
+/* ===================================================
+   输入框
+   =================================================== */
+.input {
+  width: 100%;
+  padding: var(--space-2);
+  font-size: 30rpx;
+  background-color: var(--bg-3);
+  border: 1rpx solid var(--border);
+  border-radius: var(--radius-md);
 }
 
 /* ===================================================
-   徽章设计
+   进度条
    =================================================== */
-.badge {
-  padding: 6rpx 16rpx;
-  border-radius: var(--radius-xl);
-  font-size: 22rpx;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 4rpx;
-}
-
-.badge-primary {
-  background: rgba(102, 126, 234, 0.1);
-  color: var(--primary-color);
-}
-
-.badge-success {
-  background: rgba(46, 204, 113, 0.1);
-  color: var(--success-color);
-}
-
-.badge-warning {
-  background: rgba(243, 156, 18, 0.1);
-  color: var(--warning-color);
-}
-
-.badge-danger {
-  background: rgba(231, 76, 60, 0.1);
-  color: var(--danger-color);
-}
-
-/* ===================================================
-   进度条设计
-   =================================================== */
-.progress-bar {
-  height: 12rpx;
-  background: rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-xl);
+.progress {
+  height: 6rpx;
+  background-color: var(--border);
+  border-radius: 3rpx;
   overflow: hidden;
 }
 
-.progress-fill {
+.progress-bar {
   height: 100%;
-  background: var(--primary-gradient);
-  border-radius: var(--radius-xl);
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: var(--primary);
+  border-radius: 3rpx;
+  transition: width 0.3s ease;
 }
 
 /* ===================================================
-   动画效果
+   动画 - 极其克制
    =================================================== */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20rpx);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    box-shadow: var(--shadow-glow);
-  }
-  50% {
-    box-shadow: 0 0 60rpx rgba(102, 126, 234, 0.5);
-  }
+.fade-in {
+  animation: fadeIn 0.2s ease;
 }
 
 /* ===================================================
-   Emoji 展示
+   导航栏
    =================================================== */
-.emoji {
-  font-size: 64rpx;
-  display: inline-block;
-  filter: drop-shadow(0 2rpx 4rpx rgba(0, 0, 0, 0.1));
-}
-
-.emoji-large {
-  font-size: 80rpx;
-}
-
-.emoji-huge {
-  font-size: 100rpx;
-}
-
-/* ===================================================
-   网格布局
-   =================================================== */
-.grid {
-  display: grid;
-  gap: var(--spacing-md);
-}
-
-.grid-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* ===================================================
-   弹性布局
-   =================================================== */
-.flex {
-  display: flex;
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-between {
+.nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 88rpx;
+  padding: 0 var(--space-3);
+  background-color: var(--bg-2);
+  border-bottom: 1rpx solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ===================================================
-   工具类
-   =================================================== */
-.text-center {
-  text-align: center;
-}
-
-.text-bold {
-  font-weight: 700;
-}
-
-.text-gradient {
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.mt-sm { margin-top: var(--spacing-sm); }
-.mt-md { margin-top: var(--spacing-md); }
-.mt-lg { margin-top: var(--spacing-lg); }
-
-.mb-sm { margin-bottom: var(--spacing-sm); }
-.mb-md { margin-bottom: var(--spacing-md); }
-.mb-lg { margin-bottom: var(--spacing-lg); }
-
-/* ===================================================
-   儿童友好设计
-   =================================================== */
-.kid-friendly {
-  /* 大字体 */
-  font-size: 32rpx;
-  
-  /* 圆角 */
-  border-radius: var(--radius-lg);
-  
-  /* 鲜艳色彩 */
-  color: var(--primary-color);
-  
-  /* 大间距 */
-  padding: var(--spacing-lg);
-  
-  /* 柔和阴影 */
-  box-shadow: var(--shadow-md);
-}
-
-/* ===================================================
-   高端质感
-   =================================================== */
-.premium {
-  /* 渐变背景 */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  
-  /* 白色文字 */
-  color: #fff;
-  
-  /* 光晕效果 */
-  box-shadow: 0 8rpx 32rpx rgba(102, 126, 234, 0.4);
-  
-  /* 微妙动画 */
-  animation: glow 3s ease-in-out infinite;
+.nav-bar-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--text-1);
+  letter-spacing: -0.3rpx;
 }

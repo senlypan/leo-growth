@@ -1,176 +1,110 @@
-// pages/homework/check/check.js - 检查作业
-const api = require('../../../utils/api.js')
+// pages/homework/check/check.js - 家长批改页
+const MockDB = require('../../../data/mock')
 
 Page({
   data: {
-    homeworkId: 0,
-    homework: {},
-    latestSubmission: {},
-    
-    checkResult: {
-      isCorrect: null,
-      score: null,
-      feedback: ''
-    },
-    
-    canSubmit: false,
-    
-    subjectNames: {
-      chinese: '📖 语文',
-      math: '🔢 数学',
-      english: '🔤 英语'
-    },
-    
-    statusNames: {
-      pending: '⏳ 未完成',
-      completed: '✅ 已完成',
-      checked: '✔️ 已检查'
-    }
+    homework: null,
+    isLoading: true,
+    aiResult: null,
+    score: 95,
+    checkResult: 'correct',
+    comment: ''
   },
 
   onLoad(options) {
-    if (options.id) {
-      this.setData({ homeworkId: parseInt(options.id) })
-      this.loadHomeworkDetail()
+    const homeworkId = options.id
+    if (homeworkId) {
+      this.loadHomework(homeworkId)
+      this.aiCheck(homeworkId)
     }
   },
 
-  // 加载作业详情
-  async loadHomeworkDetail() {
-    try {
-      // TODO: 调用后端 API
-      // const res = await api.get(`/homework/${this.data.homeworkId}`)
-      
-      const mockData = {
-        id: this.data.homeworkId,
-        subject: 'math',
-        content: '数学作业：口算题卡 20 道',
-        status: 'completed',
-        assignDate: '2026-03-11',
-        submissions: [
-          {
-            id: 1,
-            content: '第 5 题不太确定',
-            imageEmojis: ['📝', '✏️'], // 用 emoji 代替图片
-            submitTime: '2026-03-11 20:30',
-            isCorrect: null,
-            score: null,
-            feedback: ''
-          }
-        ]
-      }
-      
-      this.setData({
-        homework: mockData,
-        latestSubmission: mockData.submissions[0] || {}
-      })
-      
-      this.checkCanSubmit()
-    } catch (error) {
-      console.error('加载作业详情失败:', error)
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
-      })
+  // 加载作业数据
+  loadHomework(id) {
+    const homework = MockDB.homework.getById(id)
+    if (homework) {
+      this.setData({ homework, isLoading: false })
     }
   },
 
-  // 检查是否可以提交
-  checkCanSubmit() {
-    const { checkResult } = this.data
-    const canSubmit = checkResult.isCorrect !== null
-    this.setData({ canSubmit })
-  },
-
-  // 选择正确性
-  selectCorrect(e) {
-    const isCorrect = e.currentTarget.dataset.value === 'true'
+  // AI 批改（模拟）
+  async aiCheck(id) {
+    // 模拟 AI 批改延迟
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    
+    // 模拟 AI 批改结果
+    const accuracy = Math.floor(Math.random() * 15) + 85 // 85-100
+    const suggestedScore = accuracy
+    const scoreClass = accuracy >= 90 ? 'excellent' : accuracy >= 70 ? 'good' : 'need-improve'
+    
+    const diagnoses = [
+      '完成得很好，继续保持！',
+      '有少量错误，注意检查',
+      '计算需要更仔细一些',
+      '概念理解有误，建议复习'
+    ]
+    const diagnosis = diagnoses[Math.floor(Math.random() * diagnoses.length)]
+    
     this.setData({
-      'checkResult.isCorrect': isCorrect,
-      'checkResult.score': isCorrect ? this.data.checkResult.score : null
-    })
-    this.checkCanSubmit()
-  },
-
-  // 选择评分
-  selectScore(e) {
-    const score = e.currentTarget.dataset.score
-    this.setData({
-      'checkResult.score': score
+      aiResult: { accuracy, suggestedScore, scoreClass, diagnosis }
     })
   },
 
-  // 输入反馈
-  onFeedbackInput(e) {
-    this.setData({
-      'checkResult.feedback': e.detail.value
-    })
+  // 评分变化
+  onScoreChange(e) {
+    this.setData({ score: e.detail.value })
+  },
+
+  // 选择批改结果
+  selectCheckResult(e) {
+    this.setData({ checkResult: e.currentTarget.dataset.result })
+  },
+
+  // 评语变化
+  onCommentChange(e) {
+    this.setData({ comment: e.detail.value })
   },
 
   // 预览图片
   previewImage(e) {
-    const index = e.currentTarget.dataset.index
+    const src = e.currentTarget.dataset.src
     wx.previewImage({
-      current: this.data.latestSubmission.images[index],
-      urls: this.data.latestSubmission.images
+      urls: this.data.homework.images,
+      current: src
     })
   },
 
-  // 提交检查
+  // 提交批改
   async submitCheck() {
-    if (!this.data.canSubmit) {
-      wx.showToast({
-        title: '请选择作业完成情况',
-        icon: 'none'
+    if (!this.data.homework) return
+    
+    wx.showLoading({ title: '提交中...', mask: true })
+    
+    try {
+      // 更新作业状态
+      MockDB.homework.check(this.data.homework.id, {
+        score: parseInt(this.data.score) || 0,
+        checkResult: this.data.checkResult,
+        comment: this.data.comment,
+        checkTime: new Date().toISOString().replace('T', ' ').substring(0, 16)
       })
-      return
+      
+      // 添加积分（给家长）
+      MockDB.points.add('批改作业', 5)
+      
+      wx.hideLoading()
+      wx.showToast({ title: '批改完成', icon: 'success' })
+      
+      // 跳转到完成页
+      setTimeout(() => {
+        wx.navigateTo({
+          url: `/pages/homework/completed/completed?id=${this.data.homework.id}`
+        })
+      }, 1500)
+    } catch (error) {
+      console.error('提交批改失败:', error)
+      wx.hideLoading()
+      wx.showToast({ title: '提交失败', icon: 'none' })
     }
-
-    wx.showModal({
-      title: '确认检查',
-      content: '确定要提交检查结果吗？',
-      success: async (res) => {
-        if (res.confirm) {
-          wx.showLoading({
-            title: '提交中...',
-            mask: true
-          })
-
-          try {
-            const checkData = {
-              homeworkId: this.data.homeworkId,
-              ...this.data.checkResult,
-              checkedAt: new Date().toISOString()
-            }
-
-            // TODO: 调用后端 API
-            // await api.post(`/homework/${this.data.homeworkId}/check`, checkData)
-            
-            // 模拟 API 调用
-            await new Promise(resolve => setTimeout(resolve, 800))
-            
-            wx.hideLoading()
-            
-            wx.showToast({
-              title: '检查完成',
-              icon: 'success'
-            })
-
-            // 延迟返回
-            setTimeout(() => {
-              wx.navigateBack()
-            }, 1500)
-
-          } catch (error) {
-            console.error('提交检查失败:', error)
-            wx.hideLoading()
-            wx.showToast({
-              title: '提交失败，请重试',
-              icon: 'none'
-            })
-          }
-        }
-      }
-    })
   }
 })

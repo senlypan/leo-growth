@@ -2,21 +2,25 @@
   "pages": [
     "pages/index/index",
     "pages/homework/homework",
+    "pages/homework/add/add",
     "pages/homework/detail/detail",
     "pages/homework/submit/submit",
+    "pages/homework/check/check",
+    "pages/homework/completed/completed",
     "pages/mistakes/mistakes",
+    "pages/mistakes/submit/submit",
     "pages/mistakes/detail/detail",
     "pages/report/report"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#4ECDC4",
+    "navigationBarBackgroundColor": "#07C160",
     "navigationBarTitleText": "Leo Growth",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#999999",
-    "selectedColor": "#4ECDC4",
+    "selectedColor": "#07C160",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [

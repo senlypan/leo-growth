@@ -1,0 +1,232 @@
+/* pages/homework/add/add.wxss - 作业录入 */
+
+.page-header {
+  margin-bottom: var(--space-4);
+}
+
+/* 表单卡片 */
+.form-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.form-section {
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1rpx solid var(--border-light);
+}
+
+.form-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.section-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: var(--space-3);
+}
+
+/* 科目选择 */
+.subject-selector {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.subject-option {
+  flex: 1;
+  padding: var(--space-3);
+  background: var(--bg-3);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: var(--text-2);
+  transition: all 0.2s ease;
+}
+
+.subject-option:active {
+  opacity: 0.7;
+}
+
+.subject-option.active {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+/* 上传区域 */
+.upload-area {
+  background: var(--bg-3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.upload-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.upload-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-delete {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 48rpx;
+  height: 48rpx;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 28rpx;
+}
+
+.upload-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 2rpx dashed var(--border);
+}
+
+.upload-icon {
+  font-size: 56rpx;
+  margin-bottom: var(--space-1);
+}
+
+.upload-text {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-bottom: 4rpx;
+}
+
+.upload-hint {
+  font-size: 22rpx;
+  color: var(--text-3);
+}
+
+/* AI 识别结果 */
+.recognize-result {
+  background: var(--bg-3);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+
+.result-label {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.result-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.result-edit,
+.result-retry {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.result-textarea {
+  width: 100%;
+  min-height: 200rpx;
+  padding: var(--space-2);
+  background: #FFFFFF;
+  border-radius: var(--radius-sm);
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: var(--text-1);
+}
+
+/* 时间选择 */
+.datetime-picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3);
+  background: var(--bg-3);
+  border-radius: var(--radius-md);
+}
+
+.datetime-text {
+  font-size: 28rpx;
+  color: var(--text-1);
+}
+
+.datetime-arrow {
+  font-size: 32rpx;
+  color: var(--text-3);
+}
+
+/* 备注输入 */
+.note-input {
+  width: 100%;
+  min-height: 160rpx;
+  padding: var(--space-2);
+  background: var(--bg-3);
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: var(--text-1);
+}
+
+/* 提交按钮 */
+.action-bar {
+  padding: var(--space-3);
+  background: #FFFFFF;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background: var(--primary);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  font-size: 32rpx;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submit-btn:active {
+  opacity: 0.7;
+}
